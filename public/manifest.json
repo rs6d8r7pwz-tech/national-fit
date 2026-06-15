@@ -1,0 +1,21 @@
+{
+  "name": "National Fit — Coach IA",
+  "short_name": "National Fit",
+  "description": "Ton coach sportif IA personnel — Programmes, Nutrition, Progression",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#e8eeff",
+  "theme_color": "#1e50dc",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "/logo192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/logo512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "categories": ["health", "fitness", "sports"],
+  "screenshots": [],
+  "share_target": {
+    "action": "/",
+    "method": "GET",
+    "params": { "title": "title", "text": "text", "url": "url" }
+  }
+}

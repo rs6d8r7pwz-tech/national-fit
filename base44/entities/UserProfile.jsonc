@@ -1,0 +1,248 @@
+{
+  "name": "UserProfile",
+  "type": "object",
+  "properties": {
+    "first_name": {
+      "type": "string",
+      "description": "Pr\u00e9nom"
+    },
+    "age": {
+      "type": "number",
+      "description": "\u00c2ge"
+    },
+    "gender": {
+      "type": "string",
+      "enum": [
+        "homme",
+        "femme",
+        "autre"
+      ]
+    },
+    "height_cm": {
+      "type": "number"
+    },
+    "weight_kg": {
+      "type": "number"
+    },
+    "target_weight": {
+      "type": "number",
+      "description": "Poids cible en kg"
+    },
+    "fitness_level": {
+      "type": "string",
+      "enum": [
+        "debutant",
+        "intermediaire",
+        "avance"
+      ]
+    },
+    "goal": {
+      "type": "string",
+      "enum": [
+        "seche",
+        "prise_masse",
+        "maintien",
+        "force",
+        "cardio"
+      ],
+      "description": "Objectif principal"
+    },
+    "food_mode": {
+      "type": "string",
+      "enum": [
+        "flexible",
+        "strict"
+      ]
+    },
+    "equipment": {
+      "type": "string",
+      "enum": [
+        "aucun",
+        "essentiel",
+        "salle_complete"
+      ]
+    },
+    "dietary_preference": {
+      "type": "string",
+      "enum": [
+        "omnivore",
+        "vegetarien",
+        "vegan",
+        "sans_gluten",
+        "halal"
+      ]
+    },
+    "allergies": {
+      "type": "string"
+    },
+    "injuries": {
+      "type": "string"
+    },
+    "weak_muscles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "available_days": {
+      "type": "number"
+    },
+    "meals_per_day": {
+      "type": "number"
+    },
+    "body_type_score": {
+      "type": "number"
+    },
+    "ai_morphology_note": {
+      "type": "string"
+    },
+    "photo_front_relaxed": {
+      "type": "string"
+    },
+    "photo_front_flexed": {
+      "type": "string"
+    },
+    "photo_back_relaxed": {
+      "type": "string"
+    },
+    "photo_back_flexed": {
+      "type": "string"
+    },
+    "xp_points": {
+      "type": "number",
+      "default": 0
+    },
+    "streak_days": {
+      "type": "number",
+      "default": 0
+    },
+    "last_workout_date": {
+      "type": "string"
+    },
+    "onboarding_complete": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_premium": {
+      "type": "boolean",
+      "default": false,
+      "description": "Acc\u00e8s premium actif"
+    },
+    "premium_expires_at": {
+      "type": "string",
+      "description": "Date d'expiration de l'acc\u00e8s premium"
+    },
+    "premium_source": {
+      "type": "string",
+      "enum": [
+        "stripe",
+        "trial"
+      ],
+      "description": "Origine de l'acc\u00e8s premium"
+    },
+    "trial_started_at": {
+      "type": "string",
+      "description": "Date de d\u00e9but de l'essai gratuit"
+    },
+    "trial_ends_at": {
+      "type": "string",
+      "description": "Date de fin de l'essai gratuit"
+    },
+    "subscription_status": {
+      "type": "string",
+      "enum": [
+        "free",
+        "premium"
+      ],
+      "default": "free",
+      "description": "Statut abonnement"
+    },
+    "subscription_plan": {
+      "type": "string",
+      "enum": [
+        "monthly",
+        "yearly",
+        "trial"
+      ],
+      "description": "Plan choisi"
+    },
+    "stripe_customer_id": {
+      "type": "string",
+      "description": "ID client Stripe"
+    },
+    "subscription_end_date": {
+      "type": "string",
+      "description": "Date fin d'abonnement"
+    },
+    "budget_level": {
+      "type": "string",
+      "enum": [
+        "petit",
+        "moyen",
+        "confortable"
+      ],
+      "description": "Budget alimentaire"
+    },
+    "max_cooking_time_min": {
+      "type": "number",
+      "description": "Temps de cuisine max en minutes"
+    },
+    "favorite_foods": {
+      "type": "string",
+      "description": "Aliments / recettes pr\u00e9f\u00e9r\u00e9s"
+    },
+    "disliked_foods": {
+      "type": "string",
+      "description": "Aliments \u00e0 \u00e9viter"
+    },
+    "emblem_background": {
+      "type": "string",
+      "default": "slate",
+      "description": "Couleur de fond de l'embl\u00e8me"
+    },
+    "emblem_icon": {
+      "type": "string",
+      "default": "fire",
+      "description": "Ic\u00f4ne de l'embl\u00e8me"
+    },
+    "emblem_border": {
+      "type": "string",
+      "default": "simple",
+      "description": "Style de bordure"
+    },
+    "emblem_unlocked_rewards": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "description": "R\u00e9compenses d'embl\u00e8me d\u00e9bloqu\u00e9es"
+    }
+  },
+  "required": [
+    "first_name"
+  ],
+  "rls": {
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "read": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

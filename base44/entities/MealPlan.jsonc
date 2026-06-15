@@ -1,0 +1,93 @@
+{
+  "name": "MealPlan",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Nom du plan"
+    },
+    "description": {
+      "type": "string"
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "cool",
+        "efficace"
+      ],
+      "description": "Mode alimentaire : cool (\u00e9carts autoris\u00e9s) ou efficace (strict, z\u00e9ro \u00e9cart)"
+    },
+    "daily_calories": {
+      "type": "number"
+    },
+    "protein_g": {
+      "type": "number"
+    },
+    "carbs_g": {
+      "type": "number"
+    },
+    "fat_g": {
+      "type": "number"
+    },
+    "meals": {
+      "type": "array",
+      "description": "Repas du jour",
+      "items": {
+        "type": "object",
+        "properties": {
+          "meal_type": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "ingredients": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "calories": {
+            "type": "number"
+          },
+          "protein_g": {
+            "type": "number"
+          },
+          "carbs_g": {
+            "type": "number"
+          },
+          "fat_g": {
+            "type": "number"
+          },
+          "instructions": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "dietary_preference": {
+      "type": "string"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "title"
+  ],
+  "rls": {
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "read": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

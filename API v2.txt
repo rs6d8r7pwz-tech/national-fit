@@ -1,0 +1,822 @@
+API
+
+## UserProfile
+
+### Schema
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `first_name` | string | Yes | Prénom |
+| `age` | number |  | Âge |
+| `gender` | `homme`, `femme`, `autre` |  |  |
+| `height_cm` | number |  |  |
+| `weight_kg` | number |  |  |
+| `fitness_level` | `debutant`, `intermediaire`, `avance` |  |  |
+| `goal` | `seche`, `prise_masse`, `maintien`, `force`, `cardio` |  | Objectif principal : sèche / prise de masse / maintien / force / gain cardio |
+| `food_mode` | `flexible`, `strict` |  | Mode alimentaire : flexible (cheat meals ok) ou strict (zéro écart) |
+| `equipment` | `aucun`, `essentiel`, `salle_complete` |  | Équipement : aucun / salle essentielle / salle complète |
+| `dietary_preference` | `omnivore`, `vegetarien`, `vegan`, `sans_gluten`, `halal` |  |  |
+| `allergies` | string |  | Allergies ou intolérances alimentaires |
+| `injuries` | string |  | Blessures ou limitations |
+| `weak_muscles` | array |  | Groupes musculaires à cibler en priorité |
+| `available_days` | number |  |  |
+| `meals_per_day` | number |  |  |
+| `body_type_score` | number |  | Morphologie 1-10 |
+| `ai_morphology_note` | string |  | Analyse IA de la morphologie |
+| `photo_front_relaxed` | string |  |  |
+| `photo_front_flexed` | string |  |  |
+| `photo_back_relaxed` | string |  |  |
+| `photo_back_flexed` | string |  |  |
+| `xp_points` | number |  | Points XP |
+| `streak_days` | number |  | Jours consécutifs d'entraînement |
+| `last_workout_date` | string |  | Date dernière séance |
+| `onboarding_complete` | boolean |  |  |
+| `id` | string |  | Unique record identifier |
+| `created_date` | string |  | Record creation timestamp |
+| `updated_date` | string |  | Record last update timestamp |
+| `created_by_id` | string |  | ID of the user who created the record |
+
+### Endpoints
+
+### `GET /entities/UserProfile`
+List UserProfile records
+
+**Parameters:**
+- `q` (query): JSON query filter, e.g. {"status":"active"}
+- `limit` (query): Maximum number of records to return
+- `skip` (query): Number of records to skip (pagination)
+- `sort_by` (query): Field name to sort by. Prefix with '-' for descending order, e.g. -created_date
+
+```javascript
+const records = await base44.entities.UserProfile.list();
+```
+
+### `POST /entities/UserProfile`
+Create a UserProfile record
+
+```javascript
+const record = await base44.entities.UserProfile.create({
+  // your data
+});
+```
+
+### `DELETE /entities/UserProfile`
+Delete multiple UserProfile records
+
+```javascript
+await base44.entities.UserProfile.deleteMany({
+  // query filter — WARNING: empty {} deletes ALL records
+  first_name: "Example first_name"
+});
+```
+
+### `POST /entities/UserProfile/bulk`
+Bulk create UserProfile records
+
+```javascript
+const records = await base44.entities.UserProfile.bulkCreate([
+  { /* record 1 */ },
+  { /* record 2 */ },
+]);
+```
+
+### `PUT /entities/UserProfile/bulk`
+Bulk update UserProfile records
+
+```javascript
+// bulk-update is not available via SDK — use the REST API
+```
+
+### `PATCH /entities/UserProfile/update-many`
+Update many UserProfile records by query
+
+```javascript
+// update-many is not available via SDK — use the REST API
+```
+
+### `GET /entities/UserProfile/{UserProfile_id}`
+Get a UserProfile record by ID
+
+**Parameters:**
+- `UserProfile_id` (path): Record ID
+
+```javascript
+const record = await base44.entities.UserProfile.get(recordId);
+```
+
+### `PUT /entities/UserProfile/{UserProfile_id}`
+Update a UserProfile record
+
+**Parameters:**
+- `UserProfile_id` (path): Record ID
+
+```javascript
+const record = await base44.entities.UserProfile.update(recordId, {
+  // fields to update
+});
+```
+
+### `DELETE /entities/UserProfile/{UserProfile_id}`
+Delete a UserProfile record
+
+**Parameters:**
+- `UserProfile_id` (path): Record ID
+
+```javascript
+await base44.entities.UserProfile.delete(recordId);
+```
+
+### `PUT /entities/UserProfile/{UserProfile_id}/restore`
+Restore a deleted UserProfile record
+
+**Parameters:**
+- `UserProfile_id` (path): Record ID
+
+```javascript
+const record = await base44.entities.UserProfile.restore(recordId);
+```
+
+## WorkoutProgram
+
+### Schema
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `title` | string | Yes |  |
+| `description` | string |  |  |
+| `mode` | `cool`, `efficace` |  |  |
+| `goal` | string |  |  |
+| `level` | `debutant`, `intermediaire`, `avance` |  |  |
+| `equipment` | string |  |  |
+| `body_type_score` | number |  |  |
+| `total_sessions` | number |  |  |
+| `sessions_done` | number |  |  |
+| `exercise_preferences` | object |  |  |
+| `weak_muscles` | array |  |  |
+| `sessions` | array |  |  |
+| `is_active` | boolean |  |  |
+| `completed` | boolean |  |  |
+| `id` | string |  | Unique record identifier |
+| `created_date` | string |  | Record creation timestamp |
+| `updated_date` | string |  | Record last update timestamp |
+| `created_by_id` | string |  | ID of the user who created the record |
+
+### Endpoints
+
+### `GET /entities/WorkoutProgram`
+List WorkoutProgram records
+
+**Parameters:**
+- `q` (query): JSON query filter, e.g. {"status":"active"}
+- `limit` (query): Maximum number of records to return
+- `skip` (query): Number of records to skip (pagination)
+- `sort_by` (query): Field name to sort by. Prefix with '-' for descending order, e.g. -created_date
+
+```javascript
+const records = await base44.entities.WorkoutProgram.list();
+```
+
+### `POST /entities/WorkoutProgram`
+Create a WorkoutProgram record
+
+```javascript
+const record = await base44.entities.WorkoutProgram.create({
+  // your data
+});
+```
+
+### `DELETE /entities/WorkoutProgram`
+Delete multiple WorkoutProgram records
+
+```javascript
+await base44.entities.WorkoutProgram.deleteMany({
+  // query filter — WARNING: empty {} deletes ALL records
+  title: "Example title"
+});
+```
+
+### `POST /entities/WorkoutProgram/bulk`
+Bulk create WorkoutProgram records
+
+```javascript
+const records = await base44.entities.WorkoutProgram.bulkCreate([
+  { /* record 1 */ },
+  { /* record 2 */ },
+]);
+```
+
+### `PUT /entities/WorkoutProgram/bulk`
+Bulk update WorkoutProgram records
+
+```javascript
+// bulk-update is not available via SDK — use the REST API
+```
+
+### `PATCH /entities/WorkoutProgram/update-many`
+Update many WorkoutProgram records by query
+
+```javascript
+// update-many is not available via SDK — use the REST API
+```
+
+### `GET /entities/WorkoutProgram/{WorkoutProgram_id}`
+Get a WorkoutProgram record by ID
+
+**Parameters:**
+- `WorkoutProgram_id` (path): Record ID
+
+```javascript
+const record = await base44.entities.WorkoutProgram.get(recordId);
+```
+
+### `PUT /entities/WorkoutProgram/{WorkoutProgram_id}`
+Update a WorkoutProgram record
+
+**Parameters:**
+- `WorkoutProgram_id` (path): Record ID
+
+```javascript
+const record = await base44.entities.WorkoutProgram.update(recordId, {
+  // fields to update
+});
+```
+
+### `DELETE /entities/WorkoutProgram/{WorkoutProgram_id}`
+Delete a WorkoutProgram record
+
+**Parameters:**
+- `WorkoutProgram_id` (path): Record ID
+
+```javascript
+await base44.entities.WorkoutProgram.delete(recordId);
+```
+
+### `PUT /entities/WorkoutProgram/{WorkoutProgram_id}/restore`
+Restore a deleted WorkoutProgram record
+
+**Parameters:**
+- `WorkoutProgram_id` (path): Record ID
+
+```javascript
+const record = await base44.entities.WorkoutProgram.restore(recordId);
+```
+
+## MealPlan
+
+### Schema
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `title` | string | Yes | Nom du plan |
+| `description` | string |  |  |
+| `mode` | `cool`, `efficace` |  | Mode alimentaire : cool (écarts autorisés) ou efficace (strict, zéro écart) |
+| `daily_calories` | number |  |  |
+| `protein_g` | number |  |  |
+| `carbs_g` | number |  |  |
+| `fat_g` | number |  |  |
+| `meals` | array |  | Repas du jour |
+| `dietary_preference` | string |  |  |
+| `is_active` | boolean |  |  |
+| `id` | string |  | Unique record identifier |
+| `created_date` | string |  | Record creation timestamp |
+| `updated_date` | string |  | Record last update timestamp |
+| `created_by_id` | string |  | ID of the user who created the record |
+
+### Endpoints
+
+### `GET /entities/MealPlan`
+List MealPlan records
+
+**Parameters:**
+- `q` (query): JSON query filter, e.g. {"status":"active"}
+- `limit` (query): Maximum number of records to return
+- `skip` (query): Number of records to skip (pagination)
+- `sort_by` (query): Field name to sort by. Prefix with '-' for descending order, e.g. -created_date
+
+```javascript
+const records = await base44.entities.MealPlan.list();
+```
+
+### `POST /entities/MealPlan`
+Create a MealPlan record
+
+```javascript
+const record = await base44.entities.MealPlan.create({
+  // your data
+});
+```
+
+### `DELETE /entities/MealPlan`
+Delete multiple MealPlan records
+
+```javascript
+await base44.entities.MealPlan.deleteMany({
+  // query filter — WARNING: empty {} deletes ALL records
+  title: "Example title"
+});
+```
+
+### `POST /entities/MealPlan/bulk`
+Bulk create MealPlan records
+
+```javascript
+const records = await base44.entities.MealPlan.bulkCreate([
+  { /* record 1 */ },
+  { /* record 2 */ },
+]);
+```
+
+### `PUT /entities/MealPlan/bulk`
+Bulk update MealPlan records
+
+```javascript
+// bulk-update is not available via SDK — use the REST API
+```
+
+### `PATCH /entities/MealPlan/update-many`
+Update many MealPlan records by query
+
+```javascript
+// update-many is not available via SDK — use the REST API
+```
+
+### `GET /entities/MealPlan/{MealPlan_id}`
+Get a MealPlan record by ID
+
+**Parameters:**
+- `MealPlan_id` (path): Record ID
+
+```javascript
+const record = await base44.entities.MealPlan.get(recordId);
+```
+
+### `PUT /entities/MealPlan/{MealPlan_id}`
+Update a MealPlan record
+
+**Parameters:**
+- `MealPlan_id` (path): Record ID
+
+```javascript
+const record = await base44.entities.MealPlan.update(recordId, {
+  // fields to update
+});
+```
+
+### `DELETE /entities/MealPlan/{MealPlan_id}`
+Delete a MealPlan record
+
+**Parameters:**
+- `MealPlan_id` (path): Record ID
+
+```javascript
+await base44.entities.MealPlan.delete(recordId);
+```
+
+### `PUT /entities/MealPlan/{MealPlan_id}/restore`
+Restore a deleted MealPlan record
+
+**Parameters:**
+- `MealPlan_id` (path): Record ID
+
+```javascript
+const record = await base44.entities.MealPlan.restore(recordId);
+```
+
+## ProgressEntry
+
+### Schema
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `date` | string | Yes |  |
+| `weight_kg` | number |  |  |
+| `body_fat_pct` | number |  |  |
+| `chest_cm` | number |  |  |
+| `waist_cm` | number |  |  |
+| `hips_cm` | number |  |  |
+| `arms_cm` | number |  |  |
+| `thighs_cm` | number |  |  |
+| `energy_level` | number |  | 1-5 |
+| `mood` | `excellent`, `bien`, `moyen`, `fatigué` |  |  |
+| `workout_completed` | boolean |  |  |
+| `notes` | string |  |  |
+| `photo_url` | string |  |  |
+| `id` | string |  | Unique record identifier |
+| `created_date` | string |  | Record creation timestamp |
+| `updated_date` | string |  | Record last update timestamp |
+| `created_by_id` | string |  | ID of the user who created the record |
+
+### Endpoints
+
+### `GET /entities/ProgressEntry`
+List ProgressEntry records
+
+**Parameters:**
+- `q` (query): JSON query filter, e.g. {"status":"active"}
+- `limit` (query): Maximum number of records to return
+- `skip` (query): Number of records to skip (pagination)
+- `sort_by` (query): Field name to sort by. Prefix with '-' for descending order, e.g. -created_date
+
+```javascript
+const records = await base44.entities.ProgressEntry.list();
+```
+
+### `POST /entities/ProgressEntry`
+Create a ProgressEntry record
+
+```javascript
+const record = await base44.entities.ProgressEntry.create({
+  // your data
+});
+```
+
+### `DELETE /entities/ProgressEntry`
+Delete multiple ProgressEntry records
+
+```javascript
+await base44.entities.ProgressEntry.deleteMany({
+  // query filter — WARNING: empty {} deletes ALL records
+  date: "Example date"
+});
+```
+
+### `POST /entities/ProgressEntry/bulk`
+Bulk create ProgressEntry records
+
+```javascript
+const records = await base44.entities.ProgressEntry.bulkCreate([
+  { /* record 1 */ },
+  { /* record 2 */ },
+]);
+```
+
+### `PUT /entities/ProgressEntry/bulk`
+Bulk update ProgressEntry records
+
+```javascript
+// bulk-update is not available via SDK — use the REST API
+```
+
+### `PATCH /entities/ProgressEntry/update-many`
+Update many ProgressEntry records by query
+
+```javascript
+// update-many is not available via SDK — use the REST API
+```
+
+### `GET /entities/ProgressEntry/{ProgressEntry_id}`
+Get a ProgressEntry record by ID
+
+**Parameters:**
+- `ProgressEntry_id` (path): Record ID
+
+```javascript
+const record = await base44.entities.ProgressEntry.get(recordId);
+```
+
+### `PUT /entities/ProgressEntry/{ProgressEntry_id}`
+Update a ProgressEntry record
+
+**Parameters:**
+- `ProgressEntry_id` (path): Record ID
+
+```javascript
+const record = await base44.entities.ProgressEntry.update(recordId, {
+  // fields to update
+});
+```
+
+### `DELETE /entities/ProgressEntry/{ProgressEntry_id}`
+Delete a ProgressEntry record
+
+**Parameters:**
+- `ProgressEntry_id` (path): Record ID
+
+```javascript
+await base44.entities.ProgressEntry.delete(recordId);
+```
+
+### `PUT /entities/ProgressEntry/{ProgressEntry_id}/restore`
+Restore a deleted ProgressEntry record
+
+**Parameters:**
+- `ProgressEntry_id` (path): Record ID
+
+```javascript
+const record = await base44.entities.ProgressEntry.restore(recordId);
+```
+
+## FavoriteRecipe
+
+### Schema
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `recipe_name` | string | Yes | Nom de la recette |
+| `meal_type` | string |  | Type de repas (breakfast, lunch, dinner, snack) |
+| `ingredients` | array |  | Liste des ingrédients |
+| `instructions` | string |  | Instructions de préparation |
+| `calories` | number |  |  |
+| `protein_g` | number |  |  |
+| `carbs_g` | number |  |  |
+| `fat_g` | number |  |  |
+| `recipe_type` | `express`, `complete` |  | Type de recette (express ou complete) |
+| `id` | string |  | Unique record identifier |
+| `created_date` | string |  | Record creation timestamp |
+| `updated_date` | string |  | Record last update timestamp |
+| `created_by_id` | string |  | ID of the user who created the record |
+
+### Endpoints
+
+### `GET /entities/FavoriteRecipe`
+List FavoriteRecipe records
+
+**Parameters:**
+- `q` (query): JSON query filter, e.g. {"status":"active"}
+- `limit` (query): Maximum number of records to return
+- `skip` (query): Number of records to skip (pagination)
+- `sort_by` (query): Field name to sort by. Prefix with '-' for descending order, e.g. -created_date
+
+```javascript
+const records = await base44.entities.FavoriteRecipe.list();
+```
+
+### `POST /entities/FavoriteRecipe`
+Create a FavoriteRecipe record
+
+```javascript
+const record = await base44.entities.FavoriteRecipe.create({
+  // your data
+});
+```
+
+### `DELETE /entities/FavoriteRecipe`
+Delete multiple FavoriteRecipe records
+
+```javascript
+await base44.entities.FavoriteRecipe.deleteMany({
+  // query filter — WARNING: empty {} deletes ALL records
+  recipe_name: "Example recipe_name"
+});
+```
+
+### `POST /entities/FavoriteRecipe/bulk`
+Bulk create FavoriteRecipe records
+
+```javascript
+const records = await base44.entities.FavoriteRecipe.bulkCreate([
+  { /* record 1 */ },
+  { /* record 2 */ },
+]);
+```
+
+### `PUT /entities/FavoriteRecipe/bulk`
+Bulk update FavoriteRecipe records
+
+```javascript
+// bulk-update is not available via SDK — use the REST API
+```
+
+### `PATCH /entities/FavoriteRecipe/update-many`
+Update many FavoriteRecipe records by query
+
+```javascript
+// update-many is not available via SDK — use the REST API
+```
+
+### `GET /entities/FavoriteRecipe/{FavoriteRecipe_id}`
+Get a FavoriteRecipe record by ID
+
+**Parameters:**
+- `FavoriteRecipe_id` (path): Record ID
+
+```javascript
+const record = await base44.entities.FavoriteRecipe.get(recordId);
+```
+
+### `PUT /entities/FavoriteRecipe/{FavoriteRecipe_id}`
+Update a FavoriteRecipe record
+
+**Parameters:**
+- `FavoriteRecipe_id` (path): Record ID
+
+```javascript
+const record = await base44.entities.FavoriteRecipe.update(recordId, {
+  // fields to update
+});
+```
+
+### `DELETE /entities/FavoriteRecipe/{FavoriteRecipe_id}`
+Delete a FavoriteRecipe record
+
+**Parameters:**
+- `FavoriteRecipe_id` (path): Record ID
+
+```javascript
+await base44.entities.FavoriteRecipe.delete(recordId);
+```
+
+### `PUT /entities/FavoriteRecipe/{FavoriteRecipe_id}/restore`
+Restore a deleted FavoriteRecipe record
+
+**Parameters:**
+- `FavoriteRecipe_id` (path): Record ID
+
+```javascript
+const record = await base44.entities.FavoriteRecipe.restore(recordId);
+```
+
+## FavoriteProgram
+
+### Schema
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `title` | string | Yes | Titre du programme |
+| `description` | string |  |  |
+| `mode` | `cool`, `efficace` |  |  |
+| `goal` | string |  |  |
+| `level` | `debutant`, `intermediaire`, `avance` |  |  |
+| `equipment` | string |  |  |
+| `body_type_score` | number |  |  |
+| `total_sessions` | number |  |  |
+| `sessions_done` | number |  |  |
+| `exercise_preferences` | object |  |  |
+| `weak_muscles` | array |  |  |
+| `sessions` | array |  |  |
+| `is_active` | boolean |  |  |
+| `completed` | boolean |  |  |
+| `id` | string |  | Unique record identifier |
+| `created_date` | string |  | Record creation timestamp |
+| `updated_date` | string |  | Record last update timestamp |
+| `created_by_id` | string |  | ID of the user who created the record |
+
+### Endpoints
+
+### `GET /entities/FavoriteProgram`
+List FavoriteProgram records
+
+**Parameters:**
+- `q` (query): JSON query filter, e.g. {"status":"active"}
+- `limit` (query): Maximum number of records to return
+- `skip` (query): Number of records to skip (pagination)
+- `sort_by` (query): Field name to sort by. Prefix with '-' for descending order, e.g. -created_date
+
+```javascript
+const records = await base44.entities.FavoriteProgram.list();
+```
+
+### `POST /entities/FavoriteProgram`
+Create a FavoriteProgram record
+
+```javascript
+const record = await base44.entities.FavoriteProgram.create({
+  // your data
+});
+```
+
+### `DELETE /entities/FavoriteProgram`
+Delete multiple FavoriteProgram records
+
+```javascript
+await base44.entities.FavoriteProgram.deleteMany({
+  // query filter — WARNING: empty {} deletes ALL records
+  title: "Example title"
+});
+```
+
+### `POST /entities/FavoriteProgram/bulk`
+Bulk create FavoriteProgram records
+
+```javascript
+const records = await base44.entities.FavoriteProgram.bulkCreate([
+  { /* record 1 */ },
+  { /* record 2 */ },
+]);
+```
+
+### `PUT /entities/FavoriteProgram/bulk`
+Bulk update FavoriteProgram records
+
+```javascript
+// bulk-update is not available via SDK — use the REST API
+```
+
+### `PATCH /entities/FavoriteProgram/update-many`
+Update many FavoriteProgram records by query
+
+```javascript
+// update-many is not available via SDK — use the REST API
+```
+
+### `GET /entities/FavoriteProgram/{FavoriteProgram_id}`
+Get a FavoriteProgram record by ID
+
+**Parameters:**
+- `FavoriteProgram_id` (path): Record ID
+
+```javascript
+const record = await base44.entities.FavoriteProgram.get(recordId);
+```
+
+### `PUT /entities/FavoriteProgram/{FavoriteProgram_id}`
+Update a FavoriteProgram record
+
+**Parameters:**
+- `FavoriteProgram_id` (path): Record ID
+
+```javascript
+const record = await base44.entities.FavoriteProgram.update(recordId, {
+  // fields to update
+});
+```
+
+### `DELETE /entities/FavoriteProgram/{FavoriteProgram_id}`
+Delete a FavoriteProgram record
+
+**Parameters:**
+- `FavoriteProgram_id` (path): Record ID
+
+```javascript
+await base44.entities.FavoriteProgram.delete(recordId);
+```
+
+### `PUT /entities/FavoriteProgram/{FavoriteProgram_id}/restore`
+Restore a deleted FavoriteProgram record
+
+**Parameters:**
+- `FavoriteProgram_id` (path): Record ID
+
+```javascript
+const record = await base44.entities.FavoriteProgram.restore(recordId);
+```
+
+## User
+
+### Schema
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `email` | string | Yes | The email of the user |
+| `full_name` | string | Yes | The full name of the user |
+| `role` | `admin`, `user` | Yes | The role of the user in the app |
+| `id` | string |  | Unique record identifier |
+| `created_date` | string |  | Record creation timestamp |
+| `updated_date` | string |  | Record last update timestamp |
+| `created_by_id` | string |  | ID of the user who created the record |
+
+### Endpoints
+
+### `GET /entities/User`
+List User records
+
+**Parameters:**
+- `q` (query): JSON query filter, e.g. {"status":"active"}
+- `limit` (query): Maximum number of records to return
+- `skip` (query): Number of records to skip (pagination)
+- `sort_by` (query): Field name to sort by. Prefix with '-' for descending order, e.g. -created_date
+
+```javascript
+const records = await base44.entities.User.list();
+```
+
+### `POST /entities/User`
+Create a User record
+
+```javascript
+const record = await base44.entities.User.create({
+  // your data
+});
+```
+
+### `GET /entities/User/{User_id}`
+Get a User record by ID
+
+**Parameters:**
+- `User_id` (path): Record ID
+
+```javascript
+const record = await base44.entities.User.get(recordId);
+```
+
+### `PUT /entities/User/{User_id}`
+Update a User record
+
+**Parameters:**
+- `User_id` (path): Record ID
+
+```javascript
+const record = await base44.entities.User.update(recordId, {
+  // fields to update
+});
+```
+
+### `DELETE /entities/User/{User_id}`
+Delete a User record
+
+**Parameters:**
+- `User_id` (path): Record ID
+
+```javascript
+await base44.entities.User.delete(recordId);
+```

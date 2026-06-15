@@ -1,0 +1,62 @@
+{
+  "name": "FavoriteRecipe",
+  "type": "object",
+  "properties": {
+    "recipe_name": {
+      "type": "string",
+      "description": "Nom de la recette"
+    },
+    "meal_type": {
+      "type": "string",
+      "description": "Type de repas (breakfast, lunch, dinner, snack)"
+    },
+    "ingredients": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Liste des ingr\u00e9dients"
+    },
+    "instructions": {
+      "type": "string",
+      "description": "Instructions de pr\u00e9paration"
+    },
+    "calories": {
+      "type": "number"
+    },
+    "protein_g": {
+      "type": "number"
+    },
+    "carbs_g": {
+      "type": "number"
+    },
+    "fat_g": {
+      "type": "number"
+    },
+    "recipe_type": {
+      "type": "string",
+      "enum": [
+        "express",
+        "complete"
+      ],
+      "description": "Type de recette (express ou complete)"
+    }
+  },
+  "required": [
+    "recipe_name"
+  ],
+  "rls": {
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "read": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

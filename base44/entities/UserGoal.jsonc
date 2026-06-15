@@ -1,0 +1,80 @@
+{
+  "name": "UserGoal",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "poids_cible",
+        "bench_press",
+        "squat",
+        "deadlift",
+        "developpe_couche_halteres",
+        "developpe_incline",
+        "developpe_militaire",
+        "tirage_barre",
+        "rowing_barre",
+        "curl_biceps",
+        "extension_triceps",
+        "leg_press",
+        "fentes",
+        "hip_thrust",
+        "tractions",
+        "dips",
+        "cardio_km",
+        "seances_semaine",
+        "streak_jours",
+        "tour_de_taille",
+        "masse_musculaire_pct",
+        "calories_brulees_semaine"
+      ],
+      "description": "Type d'objectif"
+    },
+    "label": {
+      "type": "string",
+      "description": "Description personnalis\u00e9e"
+    },
+    "target_value": {
+      "type": "number",
+      "description": "Valeur cible"
+    },
+    "current_value": {
+      "type": "number",
+      "description": "Valeur actuelle"
+    },
+    "unit": {
+      "type": "string",
+      "description": "Unit\u00e9 (kg, km, jours...)"
+    },
+    "deadline": {
+      "type": "string",
+      "format": "date"
+    },
+    "completed": {
+      "type": "boolean",
+      "default": false
+    },
+    "motivation_why": {
+      "type": "string",
+      "description": "Pourquoi cet objectif ?"
+    }
+  },
+  "required": [
+    "type",
+    "target_value"
+  ],
+  "rls": {
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "read": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

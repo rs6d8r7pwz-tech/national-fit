@@ -1,0 +1,50 @@
+{
+  "name": "Referral",
+  "type": "object",
+  "properties": {
+    "referrer_code": {
+      "type": "string",
+      "description": "Code de parrainage du parrain"
+    },
+    "referrer_user_id": {
+      "type": "string",
+      "description": "ID de l'utilisateur parrain"
+    },
+    "referred_email": {
+      "type": "string",
+      "description": "Email du filleul"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "active",
+        "rewarded"
+      ],
+      "default": "pending",
+      "description": "Statut du parrainage"
+    },
+    "reward_months": {
+      "type": "number",
+      "default": 0,
+      "description": "Mois offerts au parrain"
+    }
+  },
+  "required": [
+    "referrer_code"
+  ],
+  "rls": {
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "read": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

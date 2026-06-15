@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-heading: 'Bangers', cursive;
+    --font-body: 'Inter', sans-serif;
+
+    /* NATIONAL FIT — Light Mode France */
+    --background: 222 55% 94%;
+    --foreground: 220 30% 10%;
+    --card: 220 60% 98%;
+    --card-foreground: 220 30% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 30% 12%;
+    --primary: 220 90% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 80% 52%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 218 45% 90%;
+    --muted-foreground: 220 20% 42%;
+    --accent: 220 90% 55%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 78% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 214 35% 84%;
+    --input: 214 35% 90%;
+    --ring: 220 90% 50%;
+    --chart-1: 220 90% 50%;
+    --chart-2: 0 80% 52%;
+    --chart-3: 35 92% 50%;
+    --chart-4: 200 70% 45%;
+    --chart-5: 0 72% 56%;
+    --radius: 1rem;
+    --sidebar-background: 214 60% 97%;
+    --sidebar-foreground: 220 30% 12%;
+    --sidebar-primary: 220 90% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 214 40% 93%;
+    --sidebar-accent-foreground: 220 30% 12%;
+    --sidebar-border: 214 30% 88%;
+    --sidebar-ring: 220 90% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-body;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* Focus */
+*:focus-visible {
+  outline: 2px solid hsl(var(--accent));
+  outline-offset: 2px;
+}
+
+/* Heading font */
+.font-heading {
+  font-family: var(--font-heading);
+  letter-spacing: 0.04em;
+}
+
+/* National Fit gradient text — bleu blanc rouge */
+.hulk-text {
+  background: linear-gradient(135deg, hsl(220, 90%, 45%), hsl(0, 80%, 52%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* XP bar animation */
+@keyframes xp-fill {
+  from { width: 0; }
+}
+
+/* Card hover lift */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(30, 80, 200, 0.12);
+}
+
+/* Streak pulse */
+@keyframes flame-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+.flame-pulse {
+  animation: flame-pulse 1.5s ease-in-out infinite;
+}
+
+/* Glow on active elements */
+.hulk-glow {
+  box-shadow: 0 0 18px rgba(30, 80, 220, 0.25), 0 4px 12px rgba(30, 80, 220, 0.15);
+}
+.hulk-glow:hover {
+  box-shadow: 0 0 28px rgba(30, 80, 220, 0.38), 0 6px 18px rgba(30, 80, 220, 0.22);
+}
+
+/* Smooth range slider */
+input[type="range"] {
+  -webkit-appearance: none;
+  height: 8px;
+  border-radius: 99px;
+  background: linear-gradient(to right, hsl(220, 90%, 50%) 0%, hsl(220, 90%, 50%) var(--range-pct, 50%), hsl(214, 30%, 88%) var(--range-pct, 50%), hsl(214, 30%, 88%) 100%);
+  outline: none;
+  cursor: pointer;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: hsl(220, 90%, 50%);
+  border: 3px solid hsl(214, 60%, 97%);
+  box-shadow: 0 2px 8px rgba(30,80,220,0.25);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* Glass card effect — tricolore */
+.glass-card {
+  background: rgba(235, 242, 255, 0.72);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(30, 80, 220, 0.18);
+}
+
+/* Tricolore animated border */
+@keyframes border-flow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.tricolore-border {
+  position: relative;
+}
+.tricolore-border::before {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #1e50dc, #ffffff, #dc2626, #ffffff, #1e50dc);
+  background-size: 300% 300%;
+  animation: border-flow 4s ease infinite;
+  z-index: -1;
+  opacity: 0.7;
+}
+
+/* Pulsing glow rouge */
+@keyframes red-glow-pulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(220,38,38,0.20); }
+  50% { box-shadow: 0 0 22px rgba(220,38,38,0.40), 0 0 40px rgba(220,38,38,0.15); }
+}
+.red-glow-pulse { animation: red-glow-pulse 2.5s ease-in-out infinite; }
+
+/* Crown glow pulse */
+@keyframes glow-pulse {
+  0%, 100% { filter: drop-shadow(0 0 10px rgba(255,215,0,0.8)); transform: scale(1); }
+  50% { filter: drop-shadow(0 0 20px rgba(255,215,0,1)); transform: scale(1.05); }
+}
+
+/* Week day pulse */
+@keyframes week-pulse {
+  0%, 100% { box-shadow: 0 0 15px rgba(255,215,0,0.6); }
+  50% { box-shadow: 0 0 25px rgba(255,215,0,0.9); }
+}
+
+/* Neon pulse — light version */
+@keyframes neon-pulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(30, 80, 220, 0.25); }
+  50% { box-shadow: 0 0 20px rgba(30, 80, 220, 0.45), 0 0 40px rgba(30, 80, 220, 0.2); }
+}
+.neon-pulse {
+  animation: neon-pulse 2s ease-in-out infinite;
+}
+
+/* Button tap feedback — effect premium */
+@keyframes ripple-out {
+  0% { transform: scale(0); opacity: 0.35; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+button:active::after,
+a:active::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgba(30,80,220,0.15);
+  animation: ripple-out 0.45s ease-out forwards;
+  pointer-events: none;
+}
+button, a { position: relative; overflow: hidden; }
+
+/* Shine swipe on premium cards */
+@keyframes shine-swipe {
+  0% { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(250%) skewX(-15deg); }
+}
+.shine-on-hover:hover::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+  animation: shine-swipe 0.7s ease forwards;
+  pointer-events: none;
+  z-index: 1;
+}
+.shine-on-hover { overflow: hidden; }
+
+/* Floating accent bar bas des cards */
+.card-accent-bar {
+  position: relative;
+  overflow: hidden;
+}
+.card-accent-bar::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 10%; right: 10%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(30,80,220,0.4), rgba(220,38,38,0.4), transparent);
+  border-radius: 99px;
+}
+
+/* Scrollbar light */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(214, 60%, 97%);
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(214, 30%, 80%);
+  border-radius: 99px;
+}

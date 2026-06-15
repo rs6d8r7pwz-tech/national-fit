@@ -1,0 +1,65 @@
+{
+  "name": "ExerciseLog",
+  "type": "object",
+  "properties": {
+    "session_id": {
+      "type": "string"
+    },
+    "exercise_name": {
+      "type": "string"
+    },
+    "muscle_group": {
+      "type": "string"
+    },
+    "sets_completed": {
+      "type": "number"
+    },
+    "reps_per_set": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "weight_per_set": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "rest_seconds": {
+      "type": "number"
+    },
+    "rir": {
+      "type": "number",
+      "description": "Reps In Reserve \u2014 0=\u00e9chec, 3=facile"
+    },
+    "is_pr": {
+      "type": "boolean",
+      "default": false
+    },
+    "pr_weight": {
+      "type": "number"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "session_id",
+    "exercise_name"
+  ],
+  "rls": {
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "read": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "name": "ShoppingList",
+  "type": "object",
+  "properties": {
+    "meal_plan_id": {
+      "type": "string",
+      "description": "ID du plan alimentaire source"
+    },
+    "meal_plan_title": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "description": "Liste des ingr\u00e9dients",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "checked": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      }
+    },
+    "generated_date": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "meal_plan_id"
+  ],
+  "rls": {
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "read": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

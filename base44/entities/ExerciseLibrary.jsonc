@@ -1,0 +1,94 @@
+{
+  "name": "ExerciseLibrary",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Nom de l'exercice"
+    },
+    "muscle_group": {
+      "type": "string",
+      "description": "Groupe musculaire principal"
+    },
+    "secondary_muscles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Muscles secondaires sollicit\u00e9s"
+    },
+    "equipment": {
+      "type": "string",
+      "enum": [
+        "aucun",
+        "halt\u00e8res",
+        "barre",
+        "machine",
+        "c\u00e2ble",
+        "\u00e9lastique",
+        "kettlebell",
+        "barre_traction"
+      ],
+      "description": "\u00c9quipement requis"
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": [
+        "debutant",
+        "intermediaire",
+        "avance"
+      ]
+    },
+    "movement_type": {
+      "type": "string",
+      "enum": [
+        "pouss\u00e9",
+        "tir\u00e9",
+        "squat",
+        "charni\u00e8re",
+        "isolation",
+        "cardio",
+        "core"
+      ],
+      "description": "Type de mouvement"
+    },
+    "is_compound": {
+      "type": "boolean",
+      "default": false,
+      "description": "Exercice poly-articulaire"
+    },
+    "instructions": {
+      "type": "string",
+      "description": "Instructions d'ex\u00e9cution"
+    },
+    "video_url": {
+      "type": "string"
+    },
+    "calories_per_set_factor": {
+      "type": "number",
+      "description": "Facteur calories par s\u00e9rie (kcal estim\u00e9)"
+    }
+  },
+  "required": [
+    "name",
+    "muscle_group"
+  ],
+  "rls": {
+    "read": {},
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

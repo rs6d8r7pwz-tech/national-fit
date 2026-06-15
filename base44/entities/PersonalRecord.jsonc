@@ -1,0 +1,52 @@
+{
+  "name": "PersonalRecord",
+  "type": "object",
+  "properties": {
+    "exercise_name": {
+      "type": "string",
+      "description": "Nom de l'exercice"
+    },
+    "max_weight_kg": {
+      "type": "number",
+      "description": "Charge maximale soulev\u00e9e (kg)"
+    },
+    "max_reps": {
+      "type": "number",
+      "description": "Nombre max de reps \u00e0 ce poids"
+    },
+    "estimated_1rm": {
+      "type": "number",
+      "description": "1RM estim\u00e9 via formule Epley (kg)"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date du PR"
+    },
+    "session_id": {
+      "type": "string",
+      "description": "ID de la s\u00e9ance source"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "exercise_name",
+    "date"
+  ],
+  "rls": {
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "read": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

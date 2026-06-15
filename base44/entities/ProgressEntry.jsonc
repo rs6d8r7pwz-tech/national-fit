@@ -1,0 +1,90 @@
+{
+  "name": "ProgressEntry",
+  "type": "object",
+  "properties": {
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "weight_kg": {
+      "type": "number"
+    },
+    "body_fat_pct": {
+      "type": "number"
+    },
+    "chest_cm": {
+      "type": "number"
+    },
+    "waist_cm": {
+      "type": "number"
+    },
+    "hips_cm": {
+      "type": "number"
+    },
+    "arms_cm": {
+      "type": "number"
+    },
+    "thighs_cm": {
+      "type": "number"
+    },
+    "energy_level": {
+      "type": "number",
+      "description": "1-5"
+    },
+    "mood": {
+      "type": "string",
+      "enum": [
+        "excellent",
+        "bien",
+        "moyen",
+        "fatigu\u00e9"
+      ]
+    },
+    "workout_completed": {
+      "type": "boolean"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "photo_url": {
+      "type": "string"
+    },
+    "sleep_hours": {
+      "type": "number",
+      "description": "Heures de sommeil"
+    },
+    "stress_level": {
+      "type": "number",
+      "description": "Niveau de stress 1-5"
+    },
+    "water_intake_l": {
+      "type": "number",
+      "description": "Eau bue en litres"
+    },
+    "steps": {
+      "type": "number",
+      "description": "Pas effectu\u00e9s"
+    },
+    "recovery_score": {
+      "type": "number",
+      "description": "Score r\u00e9cup\u00e9ration calcul\u00e9 0-100"
+    }
+  },
+  "required": [
+    "date"
+  ],
+  "rls": {
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "read": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

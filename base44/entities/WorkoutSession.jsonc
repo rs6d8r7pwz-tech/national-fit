@@ -1,0 +1,71 @@
+{
+  "name": "WorkoutSession",
+  "type": "object",
+  "properties": {
+    "program_id": {
+      "type": "string"
+    },
+    "program_title": {
+      "type": "string"
+    },
+    "session_name": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "duration_min": {
+      "type": "number"
+    },
+    "calories_burned": {
+      "type": "number"
+    },
+    "perceived_difficulty": {
+      "type": "string",
+      "enum": [
+        "facile",
+        "normal",
+        "difficile"
+      ]
+    },
+    "notes": {
+      "type": "string"
+    },
+    "completed": {
+      "type": "boolean",
+      "default": false
+    },
+    "xp_earned": {
+      "type": "number",
+      "default": 0
+    },
+    "total_volume_kg": {
+      "type": "number"
+    },
+    "total_sets": {
+      "type": "number"
+    },
+    "new_prs": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "date"
+  ],
+  "rls": {
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "read": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}
