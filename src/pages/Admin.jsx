@@ -415,4 +415,22 @@ export default function Admin() {
             {allProfiles.slice(0, 10).map(p => (
               <div key={p.id} className="flex items-center justify-between py-2 px-3 bg-slate-50 rounded-xl">
                 <div className="flex items-center gap-2">
-                  <div className="h-7 w-7 rounded-full bg-blue-100 flex items-cente
+                  <div className="h-7 w-7 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
+                    <span className="text-xs font-bold text-blue-600">{(p.full_name || p.email || '?')[0]?.toUpperCase()}</span>
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold text-slate-700">{p.full_name || 'Sans nom'}</p>
+                    <p className="text-xs text-slate-400">{p.email || ''}</p>
+                  </div>
+                </div>
+                <span className="text-xs text-slate-400">
+                  {p.created_at ? new Date(p.created_at).toLocaleDateString('fr-FR') : ''}
+                </span>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
