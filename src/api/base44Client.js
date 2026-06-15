@@ -169,4 +169,72 @@ async function InvokeLLM({ prompt, response_json_schema }) {
     ];
   }
 
-  const res = await fetch('https://api.openai.com/v1/chat/com
+  const res = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error?.message || `OpenAI error ${res.status}`);
+  }
+
+  const data = await res.json();
+  const text = data.choices?.[0]?.message?.content || '';
+
+  if (response_json_schema) {
+    try { return JSON.parse(text); } catch { return {}; }
+  }
+  return text;
+}
+
+// ============================================================
+// Upload fichier -- Supabase Storage
+// ============================================================
+async function UploadFile({ file }) {
+  const bucket = 'nfit-uploads';
+  const ext = file.name.split('.').pop();
+  const path = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+
+  const { error } = await supabase.storage.from(bucket).upload(path, file, {
+    cacheControl: '3600',
+    upsert: false,
+  });
+  if (error) throw error;
+
+  const { data } = supabase.storage.from(bucket).getPublicUrl(path);
+  return { file_url: data.publicUrl };
+}
+
+export const base44 = {
+  auth,
+  entities: {
+    UserProfile: createEntityShim('user_profiles'),
+    WorkoutProgram: createEntityShim('workout_programs'),
+    WorkoutSession: createEntityShim('workout_sessions'),
+    ExerciseLibrary: createEntityShim('exercise_library'),
+    ExerciseLog: createEntityShim('exercise_logs'),
+    PersonalRecord: createEntityShim('personal_records'),
+    FavoriteProgram: createEntityShim('favorite_programs'),
+    UserGoal: createEntityShim('user_goals'),
+    Notification: createEntityShim('notifications'),
+    ProgressEntry: createEntityShim('progress_entries'),
+    ShoppingList: createEntityShim('shopping_lists'),
+    Referral: createEntityShim('referrals'),
+    FavoriteRecipe: createEntityShim('favorite_recipes'),
+    MealPlan: createEntityShim('meal_plans'),
+  },
+  integrations: {
+    Core: { InvokeLLM, UploadFile },
+  },
+  functions: {
+    invoke: async (name) => {
+      throw new Error(`Fonction "${name}" non encore configuree (Stripe/Edge Functions a venir).`);
+    },
+  },
+  asServiceRole: null,
+};

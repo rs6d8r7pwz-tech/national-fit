@@ -250,4 +250,9 @@ export default function Legal() {
         >
           {activeTab === 'cgu' && <CGU />}
           {activeTab === 'privacy' && <Privacy />}
-          {activeTab === 'mentions' && <Mentio
+          {activeTab === 'mentions' && <Mentions />
+        </motion.div>
+      </div>
+    </div>
+  );
+}

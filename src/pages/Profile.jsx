@@ -375,4 +375,9 @@ function ProfilePhotoBox({ label, url, loading, onFile, themePersonality, langua
       ) : (
         <div className="flex flex-col items-center gap-1 text-muted-foreground p-2 text-center">
           <Camera className="h-5 w-5" />
-          <span className="text-xs leading-tight">{l
+          <span className="text-xs leading-tight">{label}</span>
+        </div>
+      )}
+    </div>
+  );
+}
