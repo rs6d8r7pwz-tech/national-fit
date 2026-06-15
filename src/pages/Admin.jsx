@@ -431,6 +431,6 @@ export default function Admin() {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </motion.div>
   );
 }
