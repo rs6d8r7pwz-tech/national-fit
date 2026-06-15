@@ -202,7 +202,7 @@ Génère une liste de courses pratique avec quantités réalistes pour 1 semaine
           )}
         </div>
 
-        {/* Footer — reset */}
+        {/* Footer -- reset */}
         {currentList && checkedItems > 0 && (
           <div className="p-3 border-t border-slate-100">
             <button

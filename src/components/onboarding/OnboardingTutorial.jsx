@@ -148,7 +148,7 @@ export default function OnboardingTutorial({ onDone }) {
         />
       )}
 
-      {/* Tooltip card — toujours centré, positionné haut ou bas */}
+      {/* Tooltip card -- toujours centré, positionné haut ou bas */}
       <AnimatePresence mode="wait">
         <motion.div
           key={step}

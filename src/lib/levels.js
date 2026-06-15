@@ -1,4 +1,4 @@
-// NATIONAL FIT — Système de niveaux & récompenses
+// NATIONAL FIT -- Système de niveaux & récompenses
 export const LEVELS = [
   {
     index: 0, min: 0, max: 2499, label: 'Recrue', emoji: '🎽', color: '#64748b',

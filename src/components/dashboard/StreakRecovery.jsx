@@ -57,7 +57,7 @@ export default function StreakRecovery({ profile, onRecovered }) {
           </div>
           <div className="flex-1 min-w-0">
             <p className="font-semibold text-sm text-orange-800">
-              {isFR ? `🔥 Streak en danger — ${streak} jours` : `🔥 Streak at risk — ${streak} days`}
+              {isFR ? `🔥 Streak en danger -- ${streak} jours` : `🔥 Streak at risk -- ${streak} days`}
             </p>
             <p className="text-xs text-orange-600 mt-0.5">
               {isFR ? 'Utilise ton joker hebdomadaire pour le préserver (1x/semaine)' : 'Use your weekly joker to keep it (1x/week)'}

@@ -41,7 +41,7 @@ export default function ProgramSummaryModal({ program, profile, aiSummary, muscl
             {[
               { icon: Calendar, label: 'Séances', value: program.total_sessions || 0 },
               { icon: Dumbbell, label: 'Exercices', value: totalEx },
-              { icon: Target, label: 'Objectif', value: profile?.goal?.replace('_', ' ') || '—' },
+              { icon: Target, label: 'Objectif', value: profile?.goal?.replace('_', ' ') || '--' },
             ].map(({ icon: IconComp, label, value }) => (
               <div key={label} className="rounded-2xl p-3 text-center bg-blue-50 border border-blue-100">
                 <IconComp className="h-5 w-5 text-blue-600 mx-auto mb-1" />
@@ -56,7 +56,7 @@ export default function ProgramSummaryModal({ program, profile, aiSummary, muscl
             <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4">
               <div className="flex items-center gap-2 mb-2">
                 <Zap className="h-4 w-4 text-blue-600" />
-                <p className="font-semibold text-sm text-blue-700">Analyse IA — Pourquoi ce programme ?</p>
+                <p className="font-semibold text-sm text-blue-700">Analyse IA -- Pourquoi ce programme ?</p>
               </div>
               <p className="text-sm text-slate-700 leading-relaxed">{aiSummary}</p>
             </div>
@@ -83,7 +83,7 @@ export default function ProgramSummaryModal({ program, profile, aiSummary, muscl
                     {i + 1}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <p className="font-medium text-sm text-slate-800">{s.day} — {s.name}</p>
+                    <p className="font-medium text-sm text-slate-800">{s.day} -- {s.name}</p>
                     <p className="text-xs text-slate-500">{s.exercises?.length || 0} exercices</p>
                   </div>
                   <div className="flex gap-1 flex-wrap justify-end max-w-[120px]">

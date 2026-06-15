@@ -66,14 +66,14 @@ export default function Pricing() {
       return;
     }
 
-    // Stripe pas encore configuré — afficher un message clair
-    alert(‘Le paiement en ligne arrive bientôt ! Pour l\’instant, contacte l\’admin pour activer ton accès Premium.’);
+    // Stripe pas encore configuré -- afficher un message clair
+    alert('Le paiement en ligne arrive bientôt ! Pour l\'instant, contacte l\'admin pour activer ton accès Premium.');
     return;
   };
 
   const handleStartTrial = async () => {
-    // Essai gratuit géré manuellement via l’admin pour l’instant
-    alert(‘Pour activer ton essai gratuit, contacte l\’administrateur de l\’application.’);
+    // Essai gratuit géré manuellement via l'admin pour l'instant
+    alert('Pour activer ton essai gratuit, contacte l\'administrateur de l\'application.');
   };
 
   return (
@@ -91,7 +91,7 @@ export default function Pricing() {
           </div>
         </div>
 
-        {/* Bannière info app native — conformité App Store / Google Play */}
+        {/* Bannière info app native -- conformité App Store / Google Play */}
         {nativeApp && !isPremium && (
           <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
             className="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-start gap-3">
@@ -281,7 +281,7 @@ export default function Pricing() {
                       {nativeApp ? <ExternalLink className="h-4 w-4" /> : <Sparkles className="h-4 w-4" />}
                       {nativeApp
                         ? `S'abonner sur le site web`
-                        : `Passer Premium — ${billingPeriod === 'monthly' ? '10€/mois' : '60€/an'}`}
+                        : `Passer Premium -- ${billingPeriod === 'monthly' ? '10€/mois' : '60€/an'}`}
                     </div>
                   )}
                 </Button>

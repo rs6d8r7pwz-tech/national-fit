@@ -131,12 +131,12 @@ Message must be: direct, data-driven when possible, actionable. ONE observation 
         msg = await invokeAIWithLimit(base44, { prompt });
       } catch {
         msg = allHard
-          ? (isFR ? `${profile.first_name}, tes 3 dernières séances étaient difficiles. Intègre 1-2 jours de récupération active cette semaine.` : `${profile.first_name}, your last 3 sessions were hard. Add 1-2 active recovery days this week — that's where muscles grow.`)
+          ? (isFR ? `${profile.first_name}, tes 3 dernières séances étaient difficiles. Intègre 1-2 jours de récupération active cette semaine.` : `${profile.first_name}, your last 3 sessions were hard. Add 1-2 active recovery days this week -- that's where muscles grow.`)
           : allEasy
           ? (isFR ? `Tu gères facilement ta charge actuelle. Augmente le poids de 5-10% sur tes exercices principaux la prochaine séance.` : `You're handling your current load easily. Increase weight by 5-10% on your main exercises next session.`)
           : thisWeek.length === 0
           ? (isFR ? `Aucune séance cette semaine encore. 30 minutes aujourd'hui suffisent pour relancer la machine.` : `No sessions yet this week. 30 minutes today is enough to get back on track.`)
-          : (isFR ? `${thisWeek.length} séance${thisWeek.length > 1 ? 's' : ''} cette semaine${totalPRs > 0 ? ` avec ${totalPRs} PR` : ''} — continue !` : `${thisWeek.length} session${thisWeek.length !== 1 ? 's' : ''} this week${totalPRs > 0 ? ` with ${totalPRs} PR${totalPRs > 1 ? 's' : ''}` : ''} — keep it up!`);
+          : (isFR ? `${thisWeek.length} séance${thisWeek.length > 1 ? 's' : ''} cette semaine${totalPRs > 0 ? ` avec ${totalPRs} PR` : ''} -- continue !` : `${thisWeek.length} session${thisWeek.length !== 1 ? 's' : ''} this week${totalPRs > 0 ? ` with ${totalPRs} PR${totalPRs > 1 ? 's' : ''}` : ''} -- keep it up!`);
       }
 
       setInsight(msg);

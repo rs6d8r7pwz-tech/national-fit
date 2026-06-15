@@ -227,7 +227,7 @@ export default function WorkoutCardEnhanced({ program, onDelete, onUpdate, onTog
                     }`}>
                       {si < currentSessionIdx ? '✓' : si + 1}
                     </span>
-                    <h4 className="font-semibold text-sm text-foreground">{session.day} — {session.name}</h4>
+                    <h4 className="font-semibold text-sm text-foreground">{session.day} -- {session.name}</h4>
                     {si === currentSessionIdx && !isCompleted && (
                       <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded-full font-medium ml-auto border border-primary/30">Suivante</span>
                     )}

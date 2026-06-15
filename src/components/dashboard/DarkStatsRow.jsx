@@ -30,7 +30,7 @@ export default function DarkStatsRow({ progressEntries = [], programs = [], prof
       color: '#ffffff', bg: 'rgba(30,80,220,0.85)', border: 'rgba(60,110,255,0.6)',
     },
     {
-      icon: Scale, label: isFR ? 'Poids' : 'Weight', value: currentWeight ? `${currentWeight}kg` : '—',
+      icon: Scale, label: isFR ? 'Poids' : 'Weight', value: currentWeight ? `${currentWeight}kg` : '--',
       sub: currentWeight && prevWeight !== currentWeight ? `${weightDiff > 0 ? '+' : ''}${weightDiff.toFixed(1)}kg` : (isFR ? 'stable' : 'stable'),
       color: '#ffffff', bg: 'rgba(14,165,233,0.80)', border: 'rgba(56,189,248,0.5)',
     },

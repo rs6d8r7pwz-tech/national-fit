@@ -86,7 +86,7 @@ export default function AnimatedBackground() {
     <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none" aria-hidden="true">
       <ParticlesCanvas />
 
-      {/* Orbe 1 — bleu profond gauche */}
+      {/* Orbe 1 -- bleu profond gauche */}
       <div style={{
         position: 'absolute', width: 700, height: 700,
         borderRadius: '50%',
@@ -95,7 +95,7 @@ export default function AnimatedBackground() {
         animation: 'orb1 18s ease-in-out infinite',
         willChange: 'transform',
       }} />
-      {/* Orbe 2 — rouge droite */}
+      {/* Orbe 2 -- rouge droite */}
       <div style={{
         position: 'absolute', width: 520, height: 520,
         borderRadius: '50%',
@@ -104,7 +104,7 @@ export default function AnimatedBackground() {
         animation: 'orb2 22s ease-in-out infinite',
         willChange: 'transform',
       }} />
-      {/* Orbe 3 — bleu milieu bas */}
+      {/* Orbe 3 -- bleu milieu bas */}
       <div style={{
         position: 'absolute', width: 420, height: 420,
         borderRadius: '50%',
@@ -113,7 +113,7 @@ export default function AnimatedBackground() {
         animation: 'orb3 26s ease-in-out infinite',
         willChange: 'transform',
       }} />
-      {/* Orbe 4 — rouge bas droite */}
+      {/* Orbe 4 -- rouge bas droite */}
       <div style={{
         position: 'absolute', width: 340, height: 340,
         borderRadius: '50%',
@@ -122,7 +122,7 @@ export default function AnimatedBackground() {
         animation: 'orb4 30s ease-in-out infinite',
         willChange: 'transform',
       }} />
-      {/* Orbe 5 — blanc/bleu pâle centre */}
+      {/* Orbe 5 -- blanc/bleu pâle centre */}
       <div style={{
         position: 'absolute', width: 300, height: 300,
         borderRadius: '50%',

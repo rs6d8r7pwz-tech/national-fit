@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { usePremium } from '@/hooks/usePremium';
 
 /**
- * PremiumGate — affiche le contenu si premium, sinon affiche un CTA de conversion.
+ * PremiumGate -- affiche le contenu si premium, sinon affiche un CTA de conversion.
  * Props:
  *   - children: contenu premium
  *   - message: message personnalisé (optionnel)
@@ -53,7 +53,7 @@ export default function PremiumGate({ children, message, compact = false }) {
         className="bg-blue-600 hover:bg-blue-700 text-white font-bold gap-2 shadow-md"
       >
         <Sparkles className="h-4 w-4" />
-        Passer Premium — dès 5€/mois
+        Passer Premium -- dès 5€/mois
       </Button>
     </div>
   );

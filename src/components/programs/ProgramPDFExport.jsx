@@ -82,7 +82,7 @@ export default function ProgramPDFExport({ program, isFR = true }) {
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(11);
       doc.setTextColor(30, 80, 220);
-      doc.text(`${session.day || `J${sIdx + 1}`} — ${session.name || ''}`, margin + 4, y + 3);
+      doc.text(`${session.day || `J${sIdx + 1}`} -- ${session.name || ''}`, margin + 4, y + 3);
       y += 11;
 
       // Exercises
@@ -134,7 +134,7 @@ export default function ProgramPDFExport({ program, isFR = true }) {
       doc.setPage(i);
       doc.setFontSize(7);
       doc.setTextColor(160, 160, 160);
-      doc.text(`NATIONAL FIT — ${isFR ? 'Généré par IA' : 'AI Generated'} — ${new Date().toLocaleDateString(isFR ? 'fr-FR' : 'en-US')}`, margin, 292);
+      doc.text(`NATIONAL FIT -- ${isFR ? 'Généré par IA' : 'AI Generated'} -- ${new Date().toLocaleDateString(isFR ? 'fr-FR' : 'en-US')}`, margin, 292);
       doc.text(`${i}/${pageCount}`, pageW - margin, 292, { align: 'right' });
     }
 

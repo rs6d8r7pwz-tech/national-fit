@@ -107,7 +107,7 @@ export default function DarkHeroBanner({ profile, nextSession, progressEntries =
           border: '1px solid rgba(30,80,220,0.30)',
         }}>
 
-        {/* Decorative blobs — no text overlap */}
+        {/* Decorative blobs -- no text overlap */}
         <div className="absolute top-0 right-0 w-32 h-32 rounded-full opacity-20 pointer-events-none"
           style={{ background: 'radial-gradient(circle, hsl(220,90%,60%) 0%, transparent 70%)', transform: 'translate(30%, -30%)' }} />
         <div className="absolute bottom-0 left-0 w-24 h-24 rounded-full opacity-15 pointer-events-none"
@@ -162,10 +162,10 @@ export default function DarkHeroBanner({ profile, nextSession, progressEntries =
           <div className="rounded-xl px-4 py-2.5 mb-4"
             style={{ background: 'rgba(255,255,255,0.14)', border: '1px solid rgba(255,255,255,0.28)', backdropFilter: 'blur(8px)' }}>
             <p className="text-sm text-white italic leading-relaxed font-medium">"{aiMsg || '...'}"</p>
-            <p className="text-[10px] mt-1 font-semibold" style={{ color: '#c9a84c' }}>— AI Coach · National Fit 🤖</p>
+            <p className="text-[10px] mt-1 font-semibold" style={{ color: '#c9a84c' }}>-- AI Coach · National Fit 🤖</p>
           </div>
 
-          {/* Level + XP — clickable */}
+          {/* Level + XP -- clickable */}
           <button className="w-full text-left" onClick={() => setShowLevels(true)}>
             <div className="flex items-center gap-3 rounded-xl p-3 transition-all active:scale-[0.99]"
               style={{ background: 'rgba(255,255,255,0.16)', border: '1.5px solid rgba(255,255,255,0.32)', backdropFilter: 'blur(10px)' }}>
@@ -211,7 +211,7 @@ export default function DarkHeroBanner({ profile, nextSession, progressEntries =
             <p className="text-center text-[10px] mt-1 font-semibold" style={{ color: '#c9a84c', opacity: 0.85 }}>{isFR ? 'Appuie pour voir les récompenses →' : 'Tap to see rewards →'}</p>
           </button>
 
-          {/* Semaine en cours — dots */}
+          {/* Semaine en cours -- dots */}
           <div className="flex items-center gap-1.5 mb-4 mt-3">
             <span className="text-[10px] font-bold mr-1 uppercase tracking-wider" style={{ color: '#ffd700', textShadow: '0 0 8px rgba(255,215,0,0.8)' }}>{isFR ? 'Sem.' : 'Week'}</span>
             {(isFR ? DAYS_FR : DAYS_EN).map((day, i) => {

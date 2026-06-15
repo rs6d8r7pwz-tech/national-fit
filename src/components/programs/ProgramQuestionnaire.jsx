@@ -12,16 +12,16 @@ export default function ProgramQuestionnaire({ answers, onChange, onNext, onBack
   const isFR = language === 'fr';
   
   const DURATION_OPTIONS = [
-    { value: 'express', label: 'Express', icon: Zap, desc: isFR ? '15-30 min — Séances courtes et intenses' : '15-30 min — Short and intense sessions', intensity: 'high' },
-    { value: 'standard', label: 'Standard', icon: Clock, desc: isFR ? '45-60 min — Équilibre volume/intensité' : '45-60 min — Balanced volume/intensity', intensity: 'medium' },
-    { value: 'complet', label: isFR ? 'Complet' : 'Complete', icon: Dumbbell, desc: isFR ? '1h30-2h — Volume maximal' : '1h30-2h — Maximum volume', intensity: 'very_high' },
+    { value: 'express', label: 'Express', icon: Zap, desc: isFR ? '15-30 min -- Séances courtes et intenses' : '15-30 min -- Short and intense sessions', intensity: 'high' },
+    { value: 'standard', label: 'Standard', icon: Clock, desc: isFR ? '45-60 min -- Équilibre volume/intensité' : '45-60 min -- Balanced volume/intensity', intensity: 'medium' },
+    { value: 'complet', label: isFR ? 'Complet' : 'Complete', icon: Dumbbell, desc: isFR ? '1h30-2h -- Volume maximal' : '1h30-2h -- Maximum volume', intensity: 'very_high' },
   ];
 
   const INTENSITY_OPTIONS = [
     { value: 'relax', label: isFR ? 'Relax / Récupération' : 'Relax / Recovery', icon: Feather, desc: isFR ? 'Étirements, mobilité, récupération active' : 'Stretching, mobility, active recovery', color: 'from-blue-400 to-blue-600' },
     { value: 'modere', label: isFR ? 'Modéré' : 'Moderate', icon: Clock, desc: isFR ? 'Séances équilibrées, progressif' : 'Balanced sessions, progressive', color: 'from-green-400 to-green-600' },
     { value: 'intense', label: isFR ? 'Intense' : 'Intense', icon: Zap, desc: isFR ? 'Les muscles souffrent ! Charges lourdes' : 'Muscles burn! Heavy weights', color: 'from-orange-400 to-orange-600' },
-    { value: 'extreme', label: isFR ? 'Extrême' : 'Extreme', icon: AlertTriangle, desc: isFR ? 'Programme de beast — volume max' : 'Beast mode — max volume', color: 'from-red-500 to-red-700' },
+    { value: 'extreme', label: isFR ? 'Extrême' : 'Extreme', icon: AlertTriangle, desc: isFR ? 'Programme de beast -- volume max' : 'Beast mode -- max volume', color: 'from-red-500 to-red-700' },
   ];
 
   const SESSION_MODE_OPTIONS = [

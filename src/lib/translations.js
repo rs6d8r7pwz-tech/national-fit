@@ -360,7 +360,7 @@ export const TRANSLATIONS = {
   },
 };
 
-// Personnalités des thèmes — style coaching sportif français
+// Personnalités des thèmes -- style coaching sportif français
 export const THEME_PERSONALITIES = {
   tricolore: {
     name: 'Coach Tricolore',

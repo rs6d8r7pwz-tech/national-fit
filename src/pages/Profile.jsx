@@ -324,7 +324,7 @@ export default function Profile() {
           {isFR ? 'Photos de suivi' : 'Progress Photos'}
         </h3>
         <p className="text-xs text-muted-foreground mb-3">
-          {isFR ? 'Suivi avant/après — privé et sécurisé' : 'Before/after tracking — private & secure'}
+          {isFR ? 'Suivi avant/après -- privé et sécurisé' : 'Before/after tracking -- private & secure'}
         </p>
         <div className="grid grid-cols-2 gap-2 mb-4">
           {photoFields.map(({ field, label }) => (
@@ -375,9 +375,4 @@ function ProfilePhotoBox({ label, url, loading, onFile, themePersonality, langua
       ) : (
         <div className="flex flex-col items-center gap-1 text-muted-foreground p-2 text-center">
           <Camera className="h-5 w-5" />
-          <span className="text-xs leading-tight">{label}</span>
-        </div>
-      )}
-    </div>
-  );
-}
+          <span className="text-xs leading-tight">{l

@@ -15,7 +15,7 @@ export default function SmartPaywall({ trigger, reason, onClose }) {
 
   useEffect(() => {
     if (!trigger) return;
-    // Don't spam — show once per session
+    // Don't spam -- show once per session
     try {
       const shown = sessionStorage.getItem(PAYWALL_KEY);
       if (shown) return;
@@ -88,7 +88,7 @@ export default function SmartPaywall({ trigger, reason, onClose }) {
                 style={{ background: 'linear-gradient(135deg, #1e50dc, #7c3aed)' }}
               >
                 <Sparkles className="h-4 w-4" />
-                {isFR ? 'VOIR LES OFFRES — dès 5€/mois' : 'SEE PLANS — from €5/month'}
+                {isFR ? 'VOIR LES OFFRES -- dès 5€/mois' : 'SEE PLANS -- from €5/month'}
               </Button>
 
               <button onClick={handleClose} className="w-full text-center text-xs text-slate-400 py-1">

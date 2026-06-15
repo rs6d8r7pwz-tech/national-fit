@@ -65,7 +65,7 @@ export default function LiveStats({ progressEntries = [], programs = [], profile
         <StatCard
           icon={TrendingDown}
           label="Évolution poids"
-          value={weightDelta !== null ? (weightDelta > 0 ? `+${weightDelta}` : weightDelta) : '—'}
+          value={weightDelta !== null ? (weightDelta > 0 ? `+${weightDelta}` : weightDelta) : '--'}
           unit={weightDelta !== null ? 'kg' : ''}
           color="bg-purple-50 text-purple-600"
           delay={0.1}
@@ -73,7 +73,7 @@ export default function LiveStats({ progressEntries = [], programs = [], profile
         <StatCard
           icon={Calendar}
           label="Objectif du jour"
-          value={todayDone ? '✓' : '—'}
+          value={todayDone ? '✓' : '--'}
           color={todayDone ? "bg-green-50 text-green-600" : "bg-gray-50 text-gray-400"}
           delay={0.15}
         />

@@ -69,7 +69,7 @@ export default function AchievementBadges({ profile, compact = false }) {
           );
         })}
         {earned.length === 0 && (
-          <p className="text-xs text-slate-400 italic">Aucun badge encore — lance-toi !</p>
+          <p className="text-xs text-slate-400 italic">Aucun badge encore -- lance-toi !</p>
         )}
       </div>
     );

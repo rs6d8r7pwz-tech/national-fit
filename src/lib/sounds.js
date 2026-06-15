@@ -1,7 +1,7 @@
 /**
- * Système audio National Fit — Web Audio API pure, zéro fichier externe.
- * 1. playSound()   — effets sonores UI/workout
- * 2. AmbientMusic  — musique d'ambiance générative (pad atmosphérique)
+ * Système audio National Fit -- Web Audio API pure, zéro fichier externe.
+ * 1. playSound()   -- effets sonores UI/workout
+ * 2. AmbientMusic  -- musique d'ambiance générative (pad atmosphérique)
  */
 
 // ─── Shared AudioContext ───────────────────────────────────────────────────
@@ -97,7 +97,7 @@ let ambientNodes = [];
 let ambientRunning = false;
 let ambientMasterGain = null;
 
-// Notes d'un accord de Am pentatonique doux — calme mais motivant
+// Notes d'un accord de Am pentatonique doux -- calme mais motivant
 const PAD_NOTES = [110, 165, 220, 275, 330]; // A2, E3, A3, C#4, E4
 
 function createPadVoice(ac, freq, masterGain) {
@@ -121,7 +121,7 @@ function createPadVoice(ac, freq, masterGain) {
     filter.connect(gain);
     gain.connect(masterGain);
 
-    // Volume très doux — pad d'ambiance
+    // Volume très doux -- pad d'ambiance
     gain.gain.setValueAtTime(0, ac.currentTime);
     gain.gain.linearRampToValueAtTime(0.018, ac.currentTime + 3); // fade-in 3s
 

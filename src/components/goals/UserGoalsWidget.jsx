@@ -152,7 +152,7 @@ export default function UserGoalsWidget({ profile }) {
       {/* Goals list */}
       <div className="p-3 space-y-2">
         {activeGoals.length === 0 && !showForm && (
-          <p className="text-xs text-slate-400 text-center py-3 italic">Aucun objectif — ajoute ton premier défi !</p>
+          <p className="text-xs text-slate-400 text-center py-3 italic">Aucun objectif -- ajoute ton premier défi !</p>
         )}
         {activeGoals.map(goal => {
           const typeInfo = GOAL_TYPES.find(t => t.value === goal.type);

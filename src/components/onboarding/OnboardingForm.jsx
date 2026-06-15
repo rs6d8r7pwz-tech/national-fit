@@ -168,7 +168,7 @@ Give a short analysis (2-3 sentences max) of their body type and a suitable goal
           <AnimatePresence mode="wait">
             <motion.div key={step} initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} transition={{ duration: 0.2 }} className="space-y-4">
 
-              {/* STEP 0 — Identité + Physique fusionnés */}
+              {/* STEP 0 -- Identité + Physique fusionnés */}
               {step === 0 && (
                 <>
                   <div>
@@ -205,7 +205,7 @@ Give a short analysis (2-3 sentences max) of their body type and a suitable goal
                 </>
               )}
 
-              {/* STEP 1 — Morphologie */}
+              {/* STEP 1 -- Morphologie */}
               {step === 1 && (
                 <>
                   <div>
@@ -270,7 +270,7 @@ Give a short analysis (2-3 sentences max) of their body type and a suitable goal
                 </>
               )}
 
-              {/* STEP 2 — Objectif */}
+              {/* STEP 2 -- Objectif */}
               {step === 2 && (
                 <>
                   <div>
@@ -318,7 +318,7 @@ Give a short analysis (2-3 sentences max) of their body type and a suitable goal
                 </>
               )}
 
-              {/* STEP 3 — Alimentation */}
+              {/* STEP 3 -- Alimentation */}
               {step === 3 && (
                 <>
                   <div>
@@ -369,7 +369,7 @@ Give a short analysis (2-3 sentences max) of their body type and a suitable goal
                 </>
               )}
 
-              {/* STEP 4 — Équipement */}
+              {/* STEP 4 -- Équipement */}
               {step === 4 && (
                 <>
                   <div>

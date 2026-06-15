@@ -1,17 +1,17 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-// Premium animated background — Marvel/Sport vibes, light theme
+// Premium animated background -- Marvel/Sport vibes, light theme
 export default function DashboardBackground() {
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
-      {/* Primary green glow — top right */}
+      {/* Primary green glow -- top right */}
       <motion.div
         animate={{ scale: [1, 1.2, 1], opacity: [0.10, 0.18, 0.10], x: [0, 15, 0] }}
         transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
         className="absolute -top-24 -right-24 h-[450px] w-[450px] rounded-full bg-green-400 blur-[80px]"
       />
-      {/* Purple glow — bottom left */}
+      {/* Purple glow -- bottom left */}
       <motion.div
         animate={{ scale: [1, 1.15, 1], opacity: [0.07, 0.13, 0.07], x: [0, -10, 0] }}
         transition={{ duration: 13, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
@@ -48,7 +48,7 @@ export default function DashboardBackground() {
         }}
       />
 
-      {/* Diagonal light ray — top */}
+      {/* Diagonal light ray -- top */}
       <div
         className="absolute top-0 right-0 w-1/2 h-1/2 opacity-[0.04]"
         style={{

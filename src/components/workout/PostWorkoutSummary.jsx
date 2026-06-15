@@ -31,7 +31,7 @@ export default function PostWorkoutSummary({ sessionName, exercises, setsComplet
     const prompt = `Tu es le Professeur Hulk, coach IA de HULK FIT.
 Profil: ${profile?.first_name || 'Athlète'}, objectif=${profile?.goal || 'fitness'}, streak=${profile?.streak_days || 0}j.
 ${memCtx}
-Séance terminée: "${sessionName}" — ${exercises.length} exercices (${exNames}).
+Séance terminée: "${sessionName}" -- ${exercises.length} exercices (${exNames}).
 ${prCount > 0 ? `${prCount} NOUVEAU(X) RECORD(S) BATTU(S) !` : ''}
 Génère un bilan post-séance motivant en 2-3 phrases max. Style coach MCU, en français. 
 Inclus une observation personnalisée sur la progression.`;
@@ -40,7 +40,7 @@ Inclus une observation personnalisée sur la progression.`;
       const res = await base44.integrations.Core.InvokeLLM({ prompt });
       setAiSummary(res);
     } catch {
-      setAiSummary(`Séance **${sessionName}** terminée avec brio ! ${prCount > 0 ? `${prCount} record battu 🏆` : ''} Tu progresses séance après séance — continue à SMASH ! 💚`);
+      setAiSummary(`Séance **${sessionName}** terminée avec brio ! ${prCount > 0 ? `${prCount} record battu 🏆` : ''} Tu progresses séance après séance -- continue à SMASH ! 💚`);
     }
     setLoadingAI(false);
   };

@@ -177,7 +177,7 @@ Format JSON strict :
                   )}
 
                   <p className="text-[10px] text-slate-400 text-center italic">
-                    {isFR ? '⚠️ Estimation IA — peut varier selon les portions réelles' : '⚠️ AI estimate — may vary based on actual portions'}
+                    {isFR ? '⚠️ Estimation IA -- peut varier selon les portions réelles' : '⚠️ AI estimate -- may vary based on actual portions'}
                   </p>
 
                   <Button

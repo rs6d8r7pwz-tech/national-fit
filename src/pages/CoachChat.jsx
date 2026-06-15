@@ -83,7 +83,7 @@ Réponds en tant que coach:`;
         <h1 className="font-heading text-3xl text-blue-600 tracking-widest flex items-center gap-3">
           <MessageCircle className="h-7 w-7 text-blue-500" /> PROFESSEUR HULK
         </h1>
-        <p className="text-muted-foreground mt-0.5 text-sm italic">"La science de Banner, la force de Hulk — à votre service."</p>
+        <p className="text-muted-foreground mt-0.5 text-sm italic">"La science de Banner, la force de Hulk -- à votre service."</p>
       </div>
 
       <Card className="flex-1 flex flex-col overflow-hidden bg-white border-gray-200">

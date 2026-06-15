@@ -20,16 +20,16 @@ const QUICK_REPLIES = [
 
 const FALLBACK_RESPONSES = {
   tricolore: {
-    fr: "Repousse tes limites ! 🇫🇷 La limite mensuelle IA est atteinte — reviens bientôt !",
-    en: "Push your limits! 🇫🇷 Monthly AI limit reached — come back soon!",
+    fr: "Repousse tes limites ! 🇫🇷 La limite mensuelle IA est atteinte -- reviens bientôt !",
+    en: "Push your limits! 🇫🇷 Monthly AI limit reached -- come back soon!",
   },
   elite: {
     fr: "Performance maximale ! Limite IA atteinte ce mois-ci. Reviens vite !",
     en: "Maximum performance! AI limit reached this month. Come back soon!",
   },
   champion: {
-    fr: "Les champions persistent ! Limite IA atteinte — reviens bientôt !",
-    en: "Champions persist! AI limit reached — come back soon!",
+    fr: "Les champions persistent ! Limite IA atteinte -- reviens bientôt !",
+    en: "Champions persist! AI limit reached -- come back soon!",
   },
 };
 
@@ -66,7 +66,7 @@ export default function FloatingChat({ profile }) {
     };
   }, [minimized]);
 
-  // Initialize greeting — proactive based on profile data
+  // Initialize greeting -- proactive based on profile data
   useEffect(() => {
     if (!profile) return;
     const streak = profile.streak_days || 0;
@@ -74,9 +74,9 @@ export default function FloatingChat({ profile }) {
     const moment = hour < 12 ? 'matin' : hour < 18 ? 'après-midi' : 'soir';
     
     let contextLine = '';
-    if (streak >= 7) contextLine = `Tu es sur une série de **${streak} jours** — c'est exceptionnel. `;
-    else if (streak === 0) contextLine = `Pas encore de séance cette semaine — aujourd'hui c'est le jour idéal pour démarrer. `;
-    else contextLine = `**${streak} jour${streak > 1 ? 's' : ''}** de streak — continue sur cette dynamique. `;
+    if (streak >= 7) contextLine = `Tu es sur une série de **${streak} jours** -- c'est exceptionnel. `;
+    else if (streak === 0) contextLine = `Pas encore de séance cette semaine -- aujourd'hui c'est le jour idéal pour démarrer. `;
+    else contextLine = `**${streak} jour${streak > 1 ? 's' : ''}** de streak -- continue sur cette dynamique. `;
 
     const greeting = `Salut **${profile.first_name}** ! 👋 Je suis ton coach IA National Fit. ${contextLine}Tu travailles sur **${profile.goal === 'seche' ? 'la sèche' : profile.goal === 'prise_masse' ? 'la prise de masse' : profile.goal === 'force' ? 'la force' : profile.goal === 'cardio' ? 'le cardio' : 'ton objectif'}**. Dis-moi comment tu vas ou pose ta question !`;
     setMessages([{ role: 'assistant', content: greeting }]);

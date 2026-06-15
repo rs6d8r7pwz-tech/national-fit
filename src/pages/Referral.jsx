@@ -51,8 +51,8 @@ export default function Referral() {
 
   const shareLink = () => {
     const text = isFR
-      ? `🏋️ Je m'entraîne avec National Fit — l'app IA qui génère des programmes sur mesure ! Essaie gratuitement avec mon lien : ${referralLink}`
-      : `🏋️ I train with National Fit — the AI app that creates custom workout plans! Try it free with my link: ${referralLink}`;
+      ? `🏋️ Je m'entraîne avec National Fit -- l'app IA qui génère des programmes sur mesure ! Essaie gratuitement avec mon lien : ${referralLink}`
+      : `🏋️ I train with National Fit -- the AI app that creates custom workout plans! Try it free with my link: ${referralLink}`;
     if (navigator.share) {
       navigator.share({ title: 'National Fit', text, url: referralLink });
     } else {

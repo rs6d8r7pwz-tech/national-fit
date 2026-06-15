@@ -113,7 +113,7 @@ export default function HeroBanner({ profile }) {
           ) : (
             <p className="text-white text-sm italic">"{aiMsg || 'La force naît de la discipline.'}"</p>
           )}
-          <p className="text-green-300 text-xs mt-1">— Professeur Hulk 🤖</p>
+          <p className="text-green-300 text-xs mt-1">-- Professeur Hulk 🤖</p>
         </div>
 
         {/* XP Ring + Level + Avatar */}

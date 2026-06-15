@@ -64,7 +64,7 @@ const AI_TIPS_FR = [
   "🫁 Expire à l'effort, inspire en revenant.",
   "💪 Contracte le muscle ciblé à chaque répétition.",
   "🔥 La vitesse d'exécution détermine l'intensité.",
-  "🧘 Reste concentré — chaque rep compte.",
+  "🧘 Reste concentré -- chaque rep compte.",
   "💪 Tu es plus fort que tu ne le crois.",
   "⏱️ Le repos est aussi important que l'effort.",
   "📈 Chaque séance, tu bats une version de toi.",
@@ -75,7 +75,7 @@ const AI_TIPS_EN = [
   "🫁 Exhale on effort, inhale on the way back.",
   "💪 Contract the target muscle every rep.",
   "🔥 Execution speed determines intensity.",
-  "🧘 Stay focused — every rep counts.",
+  "🧘 Stay focused -- every rep counts.",
   "💪 You're stronger than you think.",
   "⏱️ Rest is just as important as the effort.",
   "📈 Every session, you beat a previous version of yourself.",
@@ -480,7 +480,7 @@ export default function LiveWorkout() {
           weight_per_set: Array.from({ length: ex.sets || 3 }, () => 0),
           rest_seconds: ex.rest_seconds || 60,
           is_pr: isPR,
-          notes: `Chronométré — ${ex.reps}`,
+          notes: `Chronométré -- ${ex.reps}`,
         });
       }
 
@@ -519,7 +519,7 @@ export default function LiveWorkout() {
     }).filter(Boolean);
     await Promise.all(logPromises);
 
-    // 3. Progression IA — analyse des 3 dernières séances
+    // 3. Progression IA -- analyse des 3 dernières séances
     const recentSessions = await base44.entities.WorkoutSession.filter({ program_id: program.id });
     const last3 = recentSessions.slice(-3);
     if (last3.length >= 3) {

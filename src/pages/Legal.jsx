@@ -74,7 +74,7 @@ const Privacy = () => (
   <div className="space-y-5 text-sm text-slate-700 leading-relaxed">
     <section>
       <h2 className="font-bold text-base text-slate-900 mb-2">1. Responsable du traitement</h2>
-      <p>Brochier Bastien, éditeur de NATIONAL FIT — contact : <a href="mailto:nfitfrance@outlook.fr" className="text-blue-600 underline">nfitfrance@outlook.fr</a></p>
+      <p>Brochier Bastien, éditeur de NATIONAL FIT -- contact : <a href="mailto:nfitfrance@outlook.fr" className="text-blue-600 underline">nfitfrance@outlook.fr</a></p>
     </section>
     <section>
       <h2 className="font-bold text-base text-slate-900 mb-2">2. Données collectées</h2>
@@ -112,7 +112,7 @@ const Privacy = () => (
       <ul className="list-disc ml-5 mt-2 space-y-1">
         <li><strong>Supabase</strong> (infrastructure technique)</li>
         <li><strong>Stripe</strong> (paiements)</li>
-        <li><strong>OpenAI / Google</strong> (génération IA — données anonymisées/pseudonymisées)</li>
+        <li><strong>OpenAI / Google</strong> (génération IA -- données anonymisées/pseudonymisées)</li>
       </ul>
     </section>
     <section>
@@ -200,7 +200,7 @@ const Mentions = () => (
       <h2 className="font-bold text-base text-slate-900 mb-2">Droit applicable</h2>
       <p>Les présentes mentions légales sont soumises au droit français. Tribunal compétent : Paris.</p>
     </section>
-    <p className="text-xs text-slate-400 pt-2">© 2025 NATIONAL FIT — Tous droits réservés</p>
+    <p className="text-xs text-slate-400 pt-2">© 2025 NATIONAL FIT -- Tous droits réservés</p>
   </div>
 );
 
@@ -250,9 +250,4 @@ export default function Legal() {
         >
           {activeTab === 'cgu' && <CGU />}
           {activeTab === 'privacy' && <Privacy />}
-          {activeTab === 'mentions' && <Mentions />}
-        </motion.div>
-      </div>
-    </div>
-  );
-}
+          {activeTab === 'mentions' && <Mentio

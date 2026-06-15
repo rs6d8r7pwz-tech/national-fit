@@ -264,7 +264,7 @@ export default function Admin() {
               <AlertTriangle className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
               <div>
                 <p className="font-bold text-sm text-red-700">⚠️ {churnRiskUsers.length} abonné{churnRiskUsers.length > 1 ? 's' : ''} Premium à risque de churn</p>
-                <p className="text-xs text-red-600 mt-0.5">Inactifs depuis 5+ jours — risque d'annulation</p>
+                <p className="text-xs text-red-600 mt-0.5">Inactifs depuis 5+ jours -- risque d'annulation</p>
                 <div className="flex flex-wrap gap-1.5 mt-2">
                   {churnRiskUsers.slice(0, 5).map(u => (
                     <span key={u.id} className="text-xs bg-red-100 text-red-700 border border-red-200 px-2 py-0.5 rounded-full">
@@ -310,7 +310,7 @@ export default function Admin() {
         </CardContent>
       </Card>
 
-      {/* Gestion Premium — accordéon */}
+      {/* Gestion Premium -- accordéon */}
       <Card className="border-yellow-200 shadow-sm">
         <CardHeader className="pb-2">
           <CardTitle className="text-sm font-bold text-slate-700">👑 Gestion des abonnements ({allProfiles.length})</CardTitle>
@@ -334,7 +334,7 @@ export default function Admin() {
                       </div>
                       <div>
                         <p className="text-sm font-semibold text-slate-800">{p.first_name || 'Inconnu'} {p.age ? `· ${p.age} ans` : ''}</p>
-                        <p className="text-xs text-slate-400 truncate max-w-[180px]">{p.email || '—'}</p>
+                        <p className="text-xs text-slate-400 truncate max-w-[180px]">{p.email || '--'}</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2 shrink-0">
@@ -415,22 +415,4 @@ export default function Admin() {
             {allProfiles.slice(0, 10).map(p => (
               <div key={p.id} className="flex items-center justify-between py-2 px-3 bg-slate-50 rounded-xl">
                 <div className="flex items-center gap-2">
-                  <div className="h-7 w-7 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
-                    <span className="text-xs font-bold text-blue-600">{(p.full_name || p.email || '?')[0]?.toUpperCase()}</span>
-                  </div>
-                  <div>
-                    <p className="text-xs font-semibold text-slate-700">{p.full_name || 'Sans nom'}</p>
-                    <p className="text-xs text-slate-400">{p.email || ''}</p>
-                  </div>
-                </div>
-                <span className="text-xs text-slate-400">
-                  {p.created_at ? new Date(p.created_at).toLocaleDateString('fr-FR') : ''}
-                </span>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
-}
+                  <div className="h-7 w-7 rounded-full bg-blue-100 flex items-cente

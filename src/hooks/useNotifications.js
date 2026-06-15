@@ -1,6 +1,6 @@
 /**
  * Hook pour les notifications Web Push (rappels séance & streak).
- * Utilise l'API Notification du navigateur — pas de serveur requis.
+ * Utilise l'API Notification du navigateur -- pas de serveur requis.
  * Les notifications locales fonctionnent en PWA installée.
  */
 
@@ -75,7 +75,7 @@ export function useNotifications() {
 
     scheduleNotification({
       title: `💪 C'est l'heure ${profileFirstName} !`,
-      body: sessionName ? `Séance du jour : ${sessionName}` : `Ta séance t'attend — Let's go !`,
+      body: sessionName ? `Séance du jour : ${sessionName}` : `Ta séance t'attend -- Let's go !`,
       delayMs,
     });
 
@@ -97,7 +97,7 @@ export function useNotifications() {
     const delayMs = target - now;
     scheduleNotification({
       title: `🔥 Streak en danger, ${profileFirstName} !`,
-      body: `${streak} jours de suite — ne laisse pas tomber aujourd'hui !`,
+      body: `${streak} jours de suite -- ne laisse pas tomber aujourd'hui !`,
       delayMs,
     });
   }

@@ -17,12 +17,12 @@ const TIPS = [
 ];
 
 const HULK_QUOTES = [
-  '"HULK PAS SKIP. HULK TOUJOURS ENTRAÎNER." — Hulk, 2024',
-  '"Bruce Banner a le cerveau. Toi t\'as les deux." — Professeur Hulk',
+  '"HULK PAS SKIP. HULK TOUJOURS ENTRAÎNER." -- Hulk, 2024',
+  '"Bruce Banner a le cerveau. Toi t\'as les deux." -- Professeur Hulk',
   '"La douleur d\'aujourd\'hui, c\'est la puissance gamma de demain."',
   '"Tu veux ressembler à Hulk ? Fais ce que Banner fait. Deux fois."',
-  '"Un super-héros ne se repose que pour mieux revenir." — Nick Fury',
-  '"Avec de la discipline, même Banner devient Hulk." — MCU Wisdom',
+  '"Un super-héros ne se repose que pour mieux revenir." -- Nick Fury',
+  '"Avec de la discipline, même Banner devient Hulk." -- MCU Wisdom',
   '"SMASH tes limites. Chaque. Satané. Jour."',
 ];
 

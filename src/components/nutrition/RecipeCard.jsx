@@ -185,7 +185,7 @@ Les deux doivent correspondre aux macros du plan.`;
       </AnimatePresence>
 
       {recipes?.error && (
-        <p className="text-xs text-orange-400/60 mt-2 italic">Limite IA atteinte — réessaie plus tard.</p>
+        <p className="text-xs text-orange-400/60 mt-2 italic">Limite IA atteinte -- réessaie plus tard.</p>
       )}
     </div>
   );

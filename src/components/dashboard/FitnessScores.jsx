@@ -45,12 +45,12 @@ export default function FitnessScores({ profile }) {
         base44.entities.ProgressEntry.list('-date', 14),
       ]);
 
-      // Strength score — basé sur volume total et PRs
+      // Strength score -- basé sur volume total et PRs
       const totalVol = sessions.reduce((a, s) => a + (s.total_volume_kg || 0), 0);
       const totalPRs = sessions.reduce((a, s) => a + (s.new_prs || 0), 0);
       const strengthScore = Math.min(100, Math.round((totalVol / 500) * 40 + totalPRs * 5 + 20));
 
-      // Consistency — streak + séances/semaine
+      // Consistency -- streak + séances/semaine
       const streak = profile.streak_days || 0;
       const recentSessions = sessions.filter(s => {
         const d = new Date(s.date);
@@ -59,7 +59,7 @@ export default function FitnessScores({ profile }) {
       }).length;
       const consistencyScore = Math.min(100, Math.round(streak * 2 + recentSessions * 3 + 5));
 
-      // Recovery — sleep, stress, hydratation
+      // Recovery -- sleep, stress, hydratation
       const recentEntries = entries.slice(0, 7);
       const avgRecovery = recentEntries.reduce((a, e) => {
         const r = e.recovery_score;
@@ -67,13 +67,13 @@ export default function FitnessScores({ profile }) {
       }, { sum: 0, n: 0 });
       const recoveryScore = avgRecovery.n > 0 ? Math.round(avgRecovery.sum / avgRecovery.n) : 50;
 
-      // Cardio — durée moyenne séances
+      // Cardio -- durée moyenne séances
       const avgDuration = sessions.length > 0
         ? sessions.reduce((a, s) => a + (s.duration_min || 45), 0) / sessions.length
         : 0;
       const cardioScore = Math.min(100, Math.round(avgDuration * 1.2 + recentSessions * 2));
 
-      // Nutrition — check si plan alimentaire actif
+      // Nutrition -- check si plan alimentaire actif
       const plans = await base44.entities.MealPlan.filter({ is_active: true });
       const nutritionScore = plans.length > 0
         ? Math.min(100, 60 + recentEntries.filter(e => e.water_intake_l >= 1.5).length * 5)

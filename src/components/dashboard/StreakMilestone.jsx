@@ -5,7 +5,7 @@ import { Flame, X } from 'lucide-react';
 const MILESTONES = [
   { days: 7,   label: '7 jours', emoji: '🔥', xp: 100, msg: 'Une semaine parfaite !',    color: 'from-orange-400 to-red-500' },
   { days: 30,  label: '1 mois',  emoji: '💥', xp: 500, msg: 'Un mois de domination !',   color: 'from-green-400 to-green-600' },
-  { days: 100, label: '100 jours',emoji: '⚡', xp: 1500,msg: '100 jours — Titan Form !',  color: 'from-purple-400 to-purple-700' },
+  { days: 100, label: '100 jours',emoji: '⚡', xp: 1500,msg: '100 jours -- Titan Form !',  color: 'from-purple-400 to-purple-700' },
   { days: 365, label: '1 an',    emoji: '♾️', xp: 5000,msg: 'Immortal Hulk activé !',    color: 'from-yellow-400 to-orange-500' },
 ];
 

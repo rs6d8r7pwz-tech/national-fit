@@ -99,8 +99,8 @@ export default function Programs() {
     const totalSessions = (profile.available_days || 3) * 4;
 
     const equipmentMap = {
-      aucun: 'POIDS DU CORPS UNIQUEMENT — ZÉRO matériel (aucune barre, aucun haltère, aucune machine)',
-      essentiel: 'matériel basique accessible à domicile : haltères, barre de traction murale, bande élastique, banc simple — AUCUNE machine de salle de sport',
+      aucun: 'POIDS DU CORPS UNIQUEMENT -- ZÉRO matériel (aucune barre, aucun haltère, aucune machine)',
+      essentiel: 'matériel basique accessible à domicile : haltères, barre de traction murale, bande élastique, banc simple -- AUCUNE machine de salle de sport',
       salle_complete: 'salle de sport complète : toutes les machines, câbles, presses, rack, haltères, barres olympiques',
     };
 
@@ -191,13 +191,13 @@ ${language === 'fr' ? 'RÈGLES OBLIGATOIRES' : 'MANDATORY RULES'}:
  2. Total ${totalSessions} sessions (4 weeks)
  3. Each session: 5-7 well-structured exercises
  4. For each exercise: propose an ALTERNATIVE (same muscle group)
- 5. ⚠️ STRICT EQUIPMENT — ${equipmentMap[questionnaireAnswers.equipment || profile.equipment]}
+ 5. ⚠️ STRICT EQUIPMENT -- ${equipmentMap[questionnaireAnswers.equipment || profile.equipment]}
  6. SESSION MODE: ${sessionModeData}
  7. Rest time: ${intensityData.rest}s between sets, ${intensityData.sets} sets of ${intensityData.reps} reps
  8. ${questionnaireAnswers.intensity === 'relax' ? 'Include stretching and mobility' : questionnaireAnswers.intensity === 'extreme' ? 'Maximum volume, heavy weights' : 'Progressive and balanced'}
  9. Focus: ${questionnaireAnswers.focus || 'fullbody'}
-10. ${questionnaireAnswers.priorityMuscles?.length ? `REINFORCE: ${questionnaireAnswers.priorityMuscles.join(', ')} — more volume on these muscles` : ''}
-11. ${questionnaireAnswers.excludeMuscles?.length ? `EXCLUDE: ${questionnaireAnswers.excludeMuscles.join(', ')} — no exercises targeting these muscles` : ''}
+10. ${questionnaireAnswers.priorityMuscles?.length ? `REINFORCE: ${questionnaireAnswers.priorityMuscles.join(', ')} -- more volume on these muscles` : ''}
+11. ${questionnaireAnswers.excludeMuscles?.length ? `EXCLUDE: ${questionnaireAnswers.excludeMuscles.join(', ')} -- no exercises targeting these muscles` : ''}
 12. ⚠️ STRICTLY FOLLOW session mode: if cardio = cardio exercises ONLY, if bodybuilding = bodybuilding exercises
 13. Useful technical notes for each exercise
 14. ALL text (exercise names, session names, notes, descriptions) MUST be in ${lang}`;

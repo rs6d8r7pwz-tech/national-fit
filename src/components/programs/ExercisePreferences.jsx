@@ -43,11 +43,11 @@ const MUSCLE_GROUPS = [
     key: 'chest',
     label: '🏋️ Pectoraux',
     summary_focus: {
-      seche: "Pectoraux complets avec accent haut — définition et séparation",
-      prise_masse: "Masse pectorale globale — priorité haut et milieu pour épaisseur",
-      maintien: "Équilibre haut/bas — entretien force et volume",
-      force: "Force maximale — milieu du pec et triceps",
-      cardio: "Endurance musculaire — pec complet + cardio intégré",
+      seche: "Pectoraux complets avec accent haut -- définition et séparation",
+      prise_masse: "Masse pectorale globale -- priorité haut et milieu pour épaisseur",
+      maintien: "Équilibre haut/bas -- entretien force et volume",
+      force: "Force maximale -- milieu du pec et triceps",
+      cardio: "Endurance musculaire -- pec complet + cardio intégré",
     },
     exercises: [
       {
@@ -80,19 +80,19 @@ const MUSCLE_GROUPS = [
     key: 'back',
     label: '🦾 Dos',
     summary_focus: {
-      seche: "Dos large et défini — accent grand dorsal et détails",
-      prise_masse: "Épaisseur dorsale totale — trapèzes et grand dorsal",
-      maintien: "Dos équilibré — largeur et épaisseur",
-      force: "Force de tirage — dos complet + lombaires",
-      cardio: "Endurance dorsale — volume modéré + cardio",
+      seche: "Dos large et défini -- accent grand dorsal et détails",
+      prise_masse: "Épaisseur dorsale totale -- trapèzes et grand dorsal",
+      maintien: "Dos équilibré -- largeur et épaisseur",
+      force: "Force de tirage -- dos complet + lombaires",
+      cardio: "Endurance dorsale -- volume modéré + cardio",
     },
     exercises: [
       {
         slot: 'Exercice vertical (largeur)',
         options: [
-          { value: 'back_pull_1', label: 'Tractions pronation', desc: 'Pull-up — roi du dos large', target_areas: ['Grand dorsal (largeur)', 'Dos supérieur'], recommended_for: ['force', 'prise_masse'] },
-          { value: 'back_pull_2', label: 'Lat pulldown barre', desc: 'Machine — grand dorsal', target_areas: ['Grand dorsal', 'Largeur maximale'], recommended_for: ['maintien', 'seche'] },
-          { value: 'back_pull_3', label: 'Tirage poulie haute', desc: 'Câble — amplitude contrôlée', target_areas: ['Dos large', 'Contrôle temporel'], recommended_for: ['seche', 'cardio'] },
+          { value: 'back_pull_1', label: 'Tractions pronation', desc: 'Pull-up -- roi du dos large', target_areas: ['Grand dorsal (largeur)', 'Dos supérieur'], recommended_for: ['force', 'prise_masse'] },
+          { value: 'back_pull_2', label: 'Lat pulldown barre', desc: 'Machine -- grand dorsal', target_areas: ['Grand dorsal', 'Largeur maximale'], recommended_for: ['maintien', 'seche'] },
+          { value: 'back_pull_3', label: 'Tirage poulie haute', desc: 'Câble -- amplitude contrôlée', target_areas: ['Dos large', 'Contrôle temporel'], recommended_for: ['seche', 'cardio'] },
         ]
       },
       {
@@ -117,11 +117,11 @@ const MUSCLE_GROUPS = [
     key: 'legs',
     label: '🦵 Jambes',
     summary_focus: {
-      seche: "Jambes définies — quadriceps et ischios séparés",
-      prise_masse: "Masse globale — quadriceps et fessiers volumineux",
-      maintien: "Équilibre quad/ischio — force et proportion",
-      force: "Force maximale — squat et chaîne postérieure",
-      cardio: "Endurance jambière — circuits + peu de repos",
+      seche: "Jambes définies -- quadriceps et ischios séparés",
+      prise_masse: "Masse globale -- quadriceps et fessiers volumineux",
+      maintien: "Équilibre quad/ischio -- force et proportion",
+      force: "Force maximale -- squat et chaîne postérieure",
+      cardio: "Endurance jambière -- circuits + peu de repos",
     },
     exercises: [
       {
@@ -137,14 +137,14 @@ const MUSCLE_GROUPS = [
         options: [
           { value: 'legs_post_1', label: 'Soulevé de terre roumain (RDL)', desc: 'Ischios + fessiers', target_areas: ['Ischio-jambiers', 'Fessiers', 'Lombaires'], recommended_for: ['force', 'prise_masse'] },
           { value: 'legs_post_2', label: 'Leg curl couché', desc: 'Isolation ischios', target_areas: ['Ischio-jambiers', 'Isolation pure'], recommended_for: ['seche', 'maintien'] },
-          { value: 'legs_post_3', label: 'Hip thrust barre', desc: 'Fessiers — activation maximale', target_areas: ['Fessiers', 'Chaîne postérieure'], recommended_for: ['prise_masse', 'force'] },
+          { value: 'legs_post_3', label: 'Hip thrust barre', desc: 'Fessiers -- activation maximale', target_areas: ['Fessiers', 'Chaîne postérieure'], recommended_for: ['prise_masse', 'force'] },
         ]
       },
       {
         slot: 'Unilatéral / fonctionnel',
         options: [
           { value: 'legs_uni_1', label: 'Fentes marchées', desc: 'Équilibre et stabilité', target_areas: ['Quadriceps', 'Fessiers', 'Stabilisateurs'], recommended_for: ['cardio', 'seche'] },
-          { value: 'legs_uni_2', label: 'Bulgarian split squat', desc: 'Fesse arrière — intensif', target_areas: ['Fessiers', 'Quadriceps unilatéral'], recommended_for: ['seche', 'maintien'] },
+          { value: 'legs_uni_2', label: 'Bulgarian split squat', desc: 'Fesse arrière -- intensif', target_areas: ['Fessiers', 'Quadriceps unilatéral'], recommended_for: ['seche', 'maintien'] },
           { value: 'legs_uni_3', label: 'Step-up haltères', desc: 'Fonctionnel, genou protégé', target_areas: ['Quadriceps', 'Fessiers', 'Équilibre'], recommended_for: ['maintien', 'cardio'] },
         ]
       },
@@ -154,17 +154,17 @@ const MUSCLE_GROUPS = [
     key: 'shoulders',
     label: '💪 Épaules',
     summary_focus: {
-      seche: "Épaules détaillées — faisceau médial et arrière",
-      prise_masse: "Masse deltoïdienne — presse lourde + élévations",
-      maintien: "Épaules complètes — avant/arrière/médial",
-      force: "Force overhead — deltoïdes et trapèzes",
-      cardio: "Endurance épaules — circuits + haut volume",
+      seche: "Épaules détaillées -- faisceau médial et arrière",
+      prise_masse: "Masse deltoïdienne -- presse lourde + élévations",
+      maintien: "Épaules complètes -- avant/arrière/médial",
+      force: "Force overhead -- deltoïdes et trapèzes",
+      cardio: "Endurance épaules -- circuits + haut volume",
     },
     exercises: [
       {
         slot: 'Exercice de presse',
         options: [
-          { value: 'shoul_press_1', label: 'Développé militaire barre', desc: 'Overhead press — force', target_areas: ['Deltoïde antérieur', 'Trapèzes'], recommended_for: ['force', 'prise_masse'] },
+          { value: 'shoul_press_1', label: 'Développé militaire barre', desc: 'Overhead press -- force', target_areas: ['Deltoïde antérieur', 'Trapèzes'], recommended_for: ['force', 'prise_masse'] },
           { value: 'shoul_press_2', label: 'Développé épaules haltères', desc: 'Amplitude et contrôle', target_areas: ['Épaules complètes', 'Deltoïdes'], recommended_for: ['maintien', 'prise_masse'] },
           { value: 'shoul_press_3', label: 'Presse épaules machine', desc: 'Guidé, sécurisé', target_areas: ['Deltoïdes', 'Sécurité articulaire'], recommended_for: ['seche', 'maintien'] },
         ]
@@ -191,17 +191,17 @@ const MUSCLE_GROUPS = [
     key: 'arms',
     label: '💪 Bras',
     summary_focus: {
-      seche: "Bras définis — biceps pic et triceps fer à cheval",
-      prise_masse: "Masse brachiale — biceps et triceps volumineux",
-      maintien: "Bras équilibrés — biceps/triceps proportionnés",
-      force: "Force des bras — triceps lourds + biceps",
-      cardio: "Endurance des bras — circuits + pompes",
+      seche: "Bras définis -- biceps pic et triceps fer à cheval",
+      prise_masse: "Masse brachiale -- biceps et triceps volumineux",
+      maintien: "Bras équilibrés -- biceps/triceps proportionnés",
+      force: "Force des bras -- triceps lourds + biceps",
+      cardio: "Endurance des bras -- circuits + pompes",
     },
     exercises: [
       {
         slot: 'Biceps principal',
         options: [
-          { value: 'arms_bi_1', label: 'Curl barre droite', desc: 'Charges lourdes — masse', target_areas: ['Biceps (masse globale)', 'Brachial'], recommended_for: ['prise_masse', 'force'] },
+          { value: 'arms_bi_1', label: 'Curl barre droite', desc: 'Charges lourdes -- masse', target_areas: ['Biceps (masse globale)', 'Brachial'], recommended_for: ['prise_masse', 'force'] },
           { value: 'arms_bi_2', label: 'Curl haltères alterné', desc: 'Amplitude + supination', target_areas: ['Biceps (pic)', 'Longue portion'], recommended_for: ['seche', 'maintien'] },
           { value: 'arms_bi_3', label: 'Curl marteau', desc: 'Brachial et brachioradial', target_areas: ['Brachial', 'Brachio-radial', 'Avant-bras'], recommended_for: ['maintien', 'force'] },
         ]
@@ -219,7 +219,7 @@ const MUSCLE_GROUPS = [
         options: [
           { value: 'arms_iso_1', label: 'Curl incliné haltères', desc: 'Biceps en étirement', target_areas: ['Biceps (longue portion)', 'Étirement fascial'], recommended_for: ['seche', 'prise_masse'] },
           { value: 'arms_iso_2', label: 'Extensions triceps câble', desc: 'Contraction maximale', target_areas: ['Triceps (contraction)', 'Vaste externe'], recommended_for: ['seche', 'maintien'] },
-          { value: 'arms_iso_3', label: 'Curl concentré', desc: 'Pic biceps — isolation', target_areas: ['Biceps (pic)', 'Isolation maximale'], recommended_for: ['seche', 'maintien'] },
+          { value: 'arms_iso_3', label: 'Curl concentré', desc: 'Pic biceps -- isolation', target_areas: ['Biceps (pic)', 'Isolation maximale'], recommended_for: ['seche', 'maintien'] },
         ]
       },
     ]
@@ -228,11 +228,11 @@ const MUSCLE_GROUPS = [
     key: 'core',
     label: '🔥 Abdos / Core',
     summary_focus: {
-      seche: "Abdos ciselés — droite du ventre et obliques",
-      prise_masse: "Core blindé — abdominaux + stabilisateurs",
-      maintien: "Core fonctionnel — force et stabilité",
-      force: "Force du tronc — transfert compound",
-      cardio: "Endurance abdominale — circuits gainage",
+      seche: "Abdos ciselés -- droite du ventre et obliques",
+      prise_masse: "Core blindé -- abdominaux + stabilisateurs",
+      maintien: "Core fonctionnel -- force et stabilité",
+      force: "Force du tronc -- transfert compound",
+      cardio: "Endurance abdominale -- circuits gainage",
     },
     exercises: [
       {
@@ -254,9 +254,9 @@ const MUSCLE_GROUPS = [
       {
         slot: 'Bas du ventre',
         options: [
-          { value: 'core_low_1', label: 'Leg raise suspendu', desc: 'Bas du ventre — intensif', target_areas: ['Bas du droit de l\'abdomen', 'Fléchisseurs hanche'], recommended_for: ['seche', 'force'] },
+          { value: 'core_low_1', label: 'Leg raise suspendu', desc: 'Bas du ventre -- intensif', target_areas: ['Bas du droit de l\'abdomen', 'Fléchisseurs hanche'], recommended_for: ['seche', 'force'] },
           { value: 'core_low_2', label: 'Relevé de genoux', desc: 'Version accessible', target_areas: ['Bas du ventre', 'Contrôle lombaire'], recommended_for: ['maintien', 'seche'] },
-          { value: 'core_low_3', label: 'Roue abdominale (ab wheel)', desc: 'Core complet — avancé', target_areas: ['Core complet', 'Érecteurs', 'Épaules'], recommended_for: ['force', 'maintien'] },
+          { value: 'core_low_3', label: 'Roue abdominale (ab wheel)', desc: 'Core complet -- avancé', target_areas: ['Core complet', 'Érecteurs', 'Épaules'], recommended_for: ['force', 'maintien'] },
         ]
       },
     ]

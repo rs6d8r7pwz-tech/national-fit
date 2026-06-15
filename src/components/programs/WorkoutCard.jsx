@@ -113,7 +113,7 @@ export default function WorkoutCard({ program, onDelete, onUpdate }) {
                 <div key={i}>
                   <div className="flex items-center gap-2 mb-2">
                     <span className="h-6 w-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center">{i + 1}</span>
-                    <h4 className="font-semibold text-sm">{session.day} — {session.name}</h4>
+                    <h4 className="font-semibold text-sm">{session.day} -- {session.name}</h4>
                   </div>
                   <div className="ml-8 space-y-1.5">
                     {session.exercises?.map((ex, j) => (

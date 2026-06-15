@@ -1,4 +1,4 @@
-// AI Memory system — tracks user behavior for personalized coaching
+// AI Memory system -- tracks user behavior for personalized coaching
 
 const MEM_KEY = 'nationalfit_ai_memory_v2';
 

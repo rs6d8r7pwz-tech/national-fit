@@ -129,7 +129,7 @@ export default function Settings() {
 
   const menuItems = [
     { icon: User, label: t('profil'), action: () => navigate('/profil'), color: 'text-blue-600', bg: 'bg-blue-50' },
-    { icon: Gift, label: language === 'fr' ? '🎁 Parrainage — 1 mois offert' : '🎁 Refer a friend — 1 month free', action: () => navigate('/parrainage'), color: 'text-orange-600', bg: 'bg-orange-50' },
+    { icon: Gift, label: language === 'fr' ? '🎁 Parrainage -- 1 mois offert' : '🎁 Refer a friend -- 1 month free', action: () => navigate('/parrainage'), color: 'text-orange-600', bg: 'bg-orange-50' },
     { icon: BarChart2, label: '📊 Admin Dashboard', action: () => navigate('/admin'), color: 'text-purple-600', bg: 'bg-purple-50' },
     {
       icon: nativeApp ? ExternalLink : Crown,
@@ -166,7 +166,7 @@ export default function Settings() {
           <Crown className="h-6 w-6 text-yellow-300 shrink-0" />
           <div className="flex-1">
             <p className="font-bold text-sm">{language === 'fr' ? 'Abonnement Premium actif ✨' : 'Premium subscription active ✨'}</p>
-            <p className="text-blue-100 text-xs">{language === 'fr' ? `Plan ${profile?.subscription_plan === 'monthly' ? 'mensuel' : 'annuel'} — toutes les fonctionnalités débloquées` : `${profile?.subscription_plan === 'monthly' ? 'Monthly' : 'Annual'} plan — all features unlocked`}</p>
+            <p className="text-blue-100 text-xs">{language === 'fr' ? `Plan ${profile?.subscription_plan === 'monthly' ? 'mensuel' : 'annuel'} -- toutes les fonctionnalités débloquées` : `${profile?.subscription_plan === 'monthly' ? 'Monthly' : 'Annual'} plan -- all features unlocked`}</p>
           </div>
         </div>
       ) : (
@@ -179,7 +179,7 @@ export default function Settings() {
           </div>
           <div className="flex-1">
             <p className="font-bold text-sm text-blue-800">{language === 'fr' ? 'Passer Premium' : 'Go Premium'}</p>
-            <p className="text-blue-500 text-xs">{language === 'fr' ? 'Dès 5€/mois — accès illimité à tout' : 'From €5/month — unlimited access to everything'}</p>
+            <p className="text-blue-500 text-xs">{language === 'fr' ? 'Dès 5€/mois -- accès illimité à tout' : 'From €5/month -- unlimited access to everything'}</p>
           </div>
           <ChevronRight className="h-4 w-4 text-blue-400" />
         </button>
@@ -226,7 +226,7 @@ export default function Settings() {
               </div>
               <div className="text-left">
                 <p className="text-sm font-medium text-slate-700">{language === 'fr' ? "Musique d'ambiance" : 'Ambient music'}</p>
-                <p className="text-xs text-slate-400">{musicOn ? (language === 'fr' ? 'Pad doux en fond — motivant' : 'Soft ambient pad — motivating') : (language === 'fr' ? 'Désactivée' : 'Disabled')}</p>
+                <p className="text-xs text-slate-400">{musicOn ? (language === 'fr' ? 'Pad doux en fond -- motivant' : 'Soft ambient pad -- motivating') : (language === 'fr' ? 'Désactivée' : 'Disabled')}</p>
               </div>
             </div>
             <div className={`w-11 h-6 rounded-full transition-colors relative ${musicOn ? 'bg-purple-500' : 'bg-slate-300'}`}>

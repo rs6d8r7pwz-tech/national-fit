@@ -129,7 +129,7 @@ export default function Dashboard() {
         <PostOnboardingTrial />
       </motion.div>
 
-      {/* Daily Check-In — shown if not done today */}
+      {/* Daily Check-In -- shown if not done today */}
       <AnimatePresence>
         {!checkInDone && (
           <motion.div variants={fadeUp}>
@@ -167,12 +167,12 @@ export default function Dashboard() {
         <DarkStatsRow progressEntries={progressEntries} programs={programs} profile={profile} />
       </motion.div>
 
-      {/* Recovery Widget — affiché si check-in fait aujourd'hui */}
+      {/* Recovery Widget -- affiché si check-in fait aujourd'hui */}
       <motion.div variants={fadeUp}>
         <RecoveryWidget entries={progressEntries} />
       </motion.div>
 
-      {/* Coach IA — Analyse proactive */}
+      {/* Coach IA -- Analyse proactive */}
       <motion.div variants={fadeUp}>
         <CoachInsights profile={profile} progressEntries={progressEntries} />
       </motion.div>

@@ -29,7 +29,7 @@ export default function AppLayout() {
   const { t } = useTheme();
   const timerRef = useRef(null);
 
-  // Session inactivity timeout — désactivé sur la page séance (/seance)
+  // Session inactivity timeout -- désactivé sur la page séance (/seance)
   useEffect(() => {
     if (location.pathname === '/seance') return;
     const resetTimer = () => {
@@ -87,7 +87,7 @@ export default function AppLayout() {
         </Link>
         {profile && (
           <div className="flex items-center gap-2">
-            {/* Level badge — clickable */}
+            {/* Level badge -- clickable */}
             <button id="level-badge" onClick={() => setShowLevels(true)}
               className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl transition-all active:scale-95"
               style={{ background: 'rgba(255,255,255,0.18)', border: '1px solid rgba(255,255,255,0.35)', backdropFilter: 'blur(8px)' }}>
