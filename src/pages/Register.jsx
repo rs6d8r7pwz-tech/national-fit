@@ -28,8 +28,8 @@ export default function Register() {
     }
     setLoading(true);
     try {
-      await base44.auth.register({ email, password });
-      setShowOtp(true);
+      const session = await base44.auth.register({ email, password });
+      if (session) window.location.href = "/"; else setShowOtp(true);
     } catch (err) {
       setError(err.message || "Registration failed");
     } finally {
