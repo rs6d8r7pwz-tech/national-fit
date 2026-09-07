@@ -77,8 +77,8 @@ export default function AppLayout() {
       {showLevels && <LevelRewardsModal xp={xp} onClose={() => setShowLevels(false)} />}
 
       {/* Top header */}
-      <header className="fixed top-0 left-0 right-0 z-40 h-14 flex items-center justify-between px-4 border-b border-blue-200"
-        style={{ background: 'linear-gradient(135deg, rgba(20,50,180,0.92) 0%, rgba(30,70,200,0.88) 60%, rgba(180,20,30,0.82) 100%)', backdropFilter: 'blur(20px)', boxShadow: '0 2px 24px rgba(20,50,180,0.30)' }}>
+      <header className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-4 border-b border-blue-200"
+        style={{ height: 'calc(3.5rem + env(safe-area-inset-top, 0px))', paddingTop: 'env(safe-area-inset-top, 0px)', background: 'linear-gradient(135deg, rgba(20,50,180,0.92) 0%, rgba(30,70,200,0.88) 60%, rgba(180,20,30,0.82) 100%)', backdropFilter: 'blur(20px)', boxShadow: '0 2px 24px rgba(20,50,180,0.30)' }}>
         <Link to="/" className="flex items-center gap-2.5">
           <div className="h-8 w-8 rounded-lg flex items-center justify-center shadow-md" style={{ background: 'linear-gradient(135deg, hsl(220,90%,50%), hsl(0,80%,52%))' }}>
             <span className="text-base font-heading text-white font-bold">N</span>
@@ -105,7 +105,7 @@ export default function AppLayout() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 pt-14 pb-20">
+      <main className="flex-1 pb-20" style={{ paddingTop: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}>
         <div className="max-w-lg mx-auto px-4 py-4">
           <Outlet />
         </div>
