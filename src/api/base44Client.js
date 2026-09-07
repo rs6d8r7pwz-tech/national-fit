@@ -10,10 +10,27 @@ function resolveField(field) {
   return FIELD_ALIASES[field] || field;
 }
 
+// Tables PARTAGÉES (non liées à un utilisateur) : on ne filtre pas par user_id.
+const SHARED_TABLES = new Set(['exercise_library']);
+
+// Isolation des données : renvoie l'id de l'utilisateur connecté.
+// Défense en profondeur au cas où les règles RLS Supabase ne seraient pas actives :
+// on ne lit QUE les lignes de l'utilisateur courant.
+async function currentUserId() {
+  const { data: { user } } = await supabase.auth.getUser();
+  return user?.id || null;
+}
+
 function createEntityShim(tableName) {
+  const isShared = SHARED_TABLES.has(tableName);
   return {
     async list(sort, limit) {
       let query = supabase.from(tableName).select('*');
+      if (!isShared) {
+        const uid = await currentUserId();
+        if (!uid) return []; // pas connecté → aucune donnée personnelle
+        query = query.eq('user_id', uid);
+      }
       if (sort) {
         const desc = sort.startsWith('-');
         const field = resolveField(sort.replace(/^-/, ''));
@@ -29,6 +46,11 @@ function createEntityShim(tableName) {
 
     async filter(filters) {
       let query = supabase.from(tableName).select('*');
+      if (!isShared) {
+        const uid = await currentUserId();
+        if (!uid) return [];
+        query = query.eq('user_id', uid);
+      }
       for (const [key, value] of Object.entries(filters)) {
         if (['created_by', 'created_by_id'].includes(key)) continue;
         query = query.eq(key, value);
@@ -182,7 +204,11 @@ async function InvokeLLM({ prompt, response_json_schema }) {
 async function UploadFile({ file }) {
   const bucket = 'nfit-uploads';
   const ext = file.name.split('.').pop();
-  const path = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+  // La politique Storage exige que le fichier soit dans un dossier au nom de
+  // l'utilisateur (auth.uid). On préfixe donc le chemin par son id.
+  const { data: { user } } = await supabase.auth.getUser();
+  const prefix = user?.id ? `${user.id}/` : '';
+  const path = `${prefix}${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
 
   const { error } = await supabase.storage.from(bucket).upload(path, file, {
     cacheControl: '3600',
