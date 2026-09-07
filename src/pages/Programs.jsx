@@ -28,6 +28,7 @@ export default function Programs() {
   const [preferences, setPreferences] = useState({});
   const [generating, setGenerating] = useState(false);
   const [warning, setWarning] = useState(null);
+  const [genError, setGenError] = useState(null);
   const [pendingProgram, setPendingProgram] = useState(null);
   const [pendingAiSummary, setPendingAiSummary] = useState('');
   const [pendingMuscleSummary, setPendingMuscleSummary] = useState('');
@@ -86,6 +87,7 @@ export default function Programs() {
   const generateProgram = async () => {
     if (!profile) return;
     setGenerating(true);
+    setGenError(null);
 
     const muscleLabels = language === 'fr'
       ? { chest: 'Pectoraux', back: 'Dos', legs: 'Jambes', shoulders: 'Épaules', arms: 'Bras', core: 'Abdos/Core' }
@@ -202,6 +204,7 @@ ${language === 'fr' ? 'RÈGLES OBLIGATOIRES' : 'MANDATORY RULES'}:
 13. Useful technical notes for each exercise
 14. ALL text (exercise names, session names, notes, descriptions) MUST be in ${lang}`;
 
+    try {
     const result = await base44.integrations.Core.InvokeLLM({
       prompt: fullPrompt,
       response_json_schema: {
@@ -283,8 +286,17 @@ ${language === 'fr' ? 'RÈGLES OBLIGATOIRES' : 'MANDATORY RULES'}:
     });
     setPendingAiSummary(ai_summary || '');
     setPendingMuscleSummary(muscle_focus_summary || '');
-    setGenerating(false);
     setWizardOpen(false);
+    } catch (e) {
+      setGenError(
+        e?.message ||
+          (language === 'fr'
+            ? 'La génération a échoué. Réessaie dans un instant.'
+            : 'Generation failed. Please try again.')
+      );
+    } finally {
+      setGenerating(false);
+    }
   };
 
   const confirmProgram = async () => {
@@ -300,6 +312,21 @@ ${language === 'fr' ? 'RÈGLES OBLIGATOIRES' : 'MANDATORY RULES'}:
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-5 pb-6">
       <SmartPaywall trigger={showPaywall} reason="program_limit" onClose={() => setShowPaywall(false)} />
       <GeneratingLoader visible={generating} />
+      {genError && (
+        <div className="flex items-center gap-3 rounded-xl border border-red-400/40 bg-red-500/10 p-4 text-sm">
+          <AlertTriangle className="h-5 w-5 text-red-400 shrink-0" />
+          <span className="flex-1 text-red-200">{genError}</span>
+          <Button
+            size="sm"
+            className="text-xs bg-red-500/80 hover:bg-red-500 text-white"
+            onClick={() => { setGenError(null); generateProgram(); }}>
+            {language === 'fr' ? 'Réessayer' : 'Retry'}
+          </Button>
+          <button onClick={() => setGenError(null)}>
+            <X className="h-4 w-4 text-red-300 hover:text-red-200" />
+          </button>
+        </div>
+      )}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="font-heading text-3xl tracking-widest flex items-center gap-3" style={{ color: `hsl(${themePersonality.colors.primary})` }}>
