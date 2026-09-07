@@ -146,46 +146,29 @@ const auth = {
 };
 
 // ============================================================
-// IA -- appel OpenAI via fetch natif
+// IA -- appel via la fonction serverless /api/llm
+// La clé du fournisseur (Gemini/Groq/OpenAI) reste côté serveur,
+// jamais exposée dans le navigateur.
 // ============================================================
 async function InvokeLLM({ prompt, response_json_schema }) {
-  const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
-  if (!apiKey) {
-    throw new Error('Clé OpenAI non configurée. Ajoute VITE_OPENAI_API_KEY dans .env.local');
-  }
-
-  const messages = [{ role: 'user', content: prompt }];
-  const body = {
-    model: 'gpt-4o-mini',
-    messages,
-    temperature: 0.7,
-    max_tokens: 1200,
-  };
-
-  if (response_json_schema) {
-    body.response_format = { type: 'json_object' };
-    body.messages = [
-      { role: 'system', content: 'Réponds uniquement en JSON valide.' },
-      ...messages,
-    ];
-  }
-
-  const res = await fetch('https://api.openai.com/v1/chat/completions', {
+  const res = await fetch('/api/llm', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify(body),
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ prompt, response_json_schema }),
   });
 
   if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    throw new Error(err.error?.message || `OpenAI error ${res.status}`);
+    let detail = '';
+    try {
+      const err = await res.json();
+      detail = err.error || '';
+    } catch {
+      // réponse non-JSON, on garde le message générique
+    }
+    throw new Error(detail || `Erreur IA (${res.status}). Réessaie dans un instant.`);
   }
 
-  const data = await res.json();
-  const text = data.choices?.[0]?.message?.content || '';
+  const { text = '' } = await res.json();
 
   if (response_json_schema) {
     try { return JSON.parse(text); } catch { return {}; }
