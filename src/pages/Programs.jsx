@@ -18,6 +18,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import GeneratingLoader from '@/components/ui/GeneratingLoader';
 import { usePremium } from '@/hooks/usePremium';
 import SmartPaywall from '@/components/premium/SmartPaywall';
+import { buildStarterProgram } from '@/lib/starterProgram';
 
 export default function Programs() {
   const { t, language, getRandomMotivationalQuote, getThemePersonality } = useTheme();
@@ -299,6 +300,22 @@ ${language === 'fr' ? 'RÈGLES OBLIGATOIRES' : 'MANDATORY RULES'}:
     }
   };
 
+  // Programme debutant instantane (sans IA) : filet de securite + acces express.
+  // Le debutant n'est jamais bloque, meme si l'IA echoue ou pour demarrer sans attendre.
+  const useStarter = () => {
+    if (!profile) return;
+    const starter = buildStarterProgram(profile, language);
+    setGenError(null);
+    setWizardOpen(false);
+    setPendingProgram(starter);
+    setPendingAiSummary(
+      language === 'fr'
+        ? "Programme debutant pret a l'emploi, adapte a ton materiel. Full body progressif et sur, ideal pour bien demarrer. Tu pourras le modifier ou en generer un avec l'IA quand tu veux."
+        : 'Ready-to-use beginner program, matched to your equipment. Progressive, safe full-body -- perfect to start. You can edit it or generate an AI one anytime.'
+    );
+    setPendingMuscleSummary('');
+  };
+
   const confirmProgram = async () => {
     await createMutation.mutateAsync(pendingProgram);
     setPendingProgram(null);
@@ -316,6 +333,13 @@ ${language === 'fr' ? 'RÈGLES OBLIGATOIRES' : 'MANDATORY RULES'}:
         <div className="flex items-center gap-3 rounded-xl border border-red-400/40 bg-red-500/10 p-4 text-sm">
           <AlertTriangle className="h-5 w-5 text-red-400 shrink-0" />
           <span className="flex-1 text-red-200">{genError}</span>
+          <Button
+            size="sm"
+            variant="outline"
+            className="text-xs border-red-400/40 text-red-100 hover:bg-red-500/10"
+            onClick={useStarter}>
+            {language === 'fr' ? 'Programme débutant prêt' : 'Ready beginner program'}
+          </Button>
           <Button
             size="sm"
             className="text-xs bg-red-500/80 hover:bg-red-500 text-white"
@@ -577,6 +601,11 @@ ${isCardio ? `{
                 <Sparkles className="h-5 w-5" />
                 {language === 'fr' ? 'Créer mon premier programme' : 'Create my first program'}
               </Button>
+              <div>
+                <button onClick={useStarter} disabled={!profile} className="mt-3 text-sm font-semibold underline decoration-dotted underline-offset-4 disabled:opacity-50" style={{ color: `hsl(${themePersonality.colors.primary})` }}>
+                  {language === 'fr' ? 'Ou : programme débutant prêt en 1 clic (sans attente)' : 'Or: ready beginner program in 1 click (no wait)'}
+                </button>
+              </div>
             </div>
           ) : (
             <div className="space-y-4">
