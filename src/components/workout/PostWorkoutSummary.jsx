@@ -6,6 +6,7 @@ import { base44 } from '@/api/base44Client';
 import { buildMemoryContext } from '@/lib/aiMemory';
 import ReactMarkdown from 'react-markdown';
 import WorkoutShareCard from '@/components/workout/WorkoutShareCard';
+import confetti from 'canvas-confetti';
 
 const FEEDBACK_OPTIONS = [
   { value: 'easy', label: 'Trop facile 😎', color: 'bg-blue-500', xp: 100 },
@@ -22,6 +23,16 @@ export default function PostWorkoutSummary({ sessionName, exercises, setsComplet
 
   useEffect(() => {
     generateSummary();
+    // Celebration de fin de seance : confettis tricolores + vibration
+    if (navigator.vibrate) navigator.vibrate([60, 40, 60]);
+    const colors = ['#1e50dc', '#dc2626', '#ffffff', '#fbbf24'];
+    const burst = (x) => confetti({ particleCount: 55, spread: 75, origin: { x, y: 0.35 }, colors, scalar: 1.05 });
+    burst(0.5);
+    setTimeout(() => { burst(0.15); burst(0.85); }, 250);
+    // Rafale supplementaire si des records ont ete battus
+    if (prCount > 0) {
+      setTimeout(() => confetti({ particleCount: 90, spread: 100, origin: { y: 0.4 }, colors, startVelocity: 45 }), 500);
+    }
   }, []);
 
   const generateSummary = async () => {
