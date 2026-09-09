@@ -365,11 +365,11 @@ export const THEME_PERSONALITIES = {
   tricolore: {
     name: 'Coach Tricolore',
     colors: {
-      primary: '220 90% 56%',
+      primary: '220 90% 44%',
       primaryForeground: '0 0% 100%',
-      secondary: '0 80% 55%',
+      secondary: '0 80% 50%',
       secondaryForeground: '0 0% 100%',
-      accent: '220 90% 62%',
+      accent: '220 90% 50%',
       accentForeground: '0 0% 100%',
       background: '222 28% 7%',
       foreground: '210 20% 95%',
@@ -420,11 +420,11 @@ export const THEME_PERSONALITIES = {
   elite: {
     name: 'Coach Élite',
     colors: {
-      primary: '0 0% 95%',
-      primaryForeground: '222 28% 7%',
-      secondary: '0 75% 55%',
+      primary: '222 16% 22%',
+      primaryForeground: '0 0% 100%',
+      secondary: '0 75% 50%',
       secondaryForeground: '0 0% 100%',
-      accent: '0 0% 100%',
+      accent: '222 14% 30%',
       accentForeground: '222 28% 7%',
       background: '222 35% 5%',
       foreground: '210 20% 95%',
@@ -475,11 +475,11 @@ export const THEME_PERSONALITIES = {
   champion: {
     name: 'Coach Champion',
     colors: {
-      primary: '0 80% 55%',
+      primary: '0 78% 47%',
       primaryForeground: '0 0% 100%',
-      secondary: '220 90% 56%',
+      secondary: '220 90% 46%',
       secondaryForeground: '0 0% 100%',
-      accent: '0 85% 60%',
+      accent: '0 80% 50%',
       accentForeground: '0 0% 100%',
       background: '0 15% 6%',
       foreground: '210 20% 95%',
