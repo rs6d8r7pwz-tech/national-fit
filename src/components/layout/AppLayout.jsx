@@ -12,6 +12,7 @@ import { useTheme } from '@/lib/ThemeContext';
 import FloatingChat from '@/components/coach/FloatingChat';
 import AnimatedBackground from '@/components/ui/AnimatedBackground';
 import { playSound, startAmbient, isMusicEnabled } from '@/lib/sounds';
+import confetti from 'canvas-confetti';
 
 // Session timeout: 60 minutes d'inactivité → déconnexion automatique
 const SESSION_TIMEOUT_MS = 60 * 60 * 1000;
@@ -28,6 +29,7 @@ export default function AppLayout() {
   const location = useLocation();
   const { t } = useTheme();
   const timerRef = useRef(null);
+  const lastLevelRef = useRef(null);
 
   // Session inactivity timeout -- désactivé sur la page séance (/seance)
   useEffect(() => {
@@ -70,6 +72,28 @@ export default function AppLayout() {
   const profile = profiles?.[0];
   const xp = profile?.xp_points || 0;
   const level = getLevel(xp);
+
+  // Celebration automatique lors d'une montee de niveau (pas au 1er chargement)
+  useEffect(() => {
+    if (!profile) return;
+    const idx = level.index;
+    if (lastLevelRef.current === null) { lastLevelRef.current = idx; return; }
+    if (idx > lastLevelRef.current) {
+      lastLevelRef.current = idx;
+      if (navigator.vibrate) navigator.vibrate([100, 50, 100, 50, 220]);
+      try { playSound('unlock'); } catch { /* noop */ }
+      const colors = ['#1e50dc', '#dc2626', '#ffffff', '#fbbf24'];
+      const end = Date.now() + 1400;
+      (function frame() {
+        confetti({ particleCount: 6, angle: 60, spread: 62, origin: { x: 0, y: 0.7 }, colors });
+        confetti({ particleCount: 6, angle: 120, spread: 62, origin: { x: 1, y: 0.7 }, colors });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+      setShowLevels(true);
+    } else {
+      lastLevelRef.current = idx;
+    }
+  }, [profile, level.index]);
 
   return (
     <div className="min-h-screen flex flex-col" style={{ background: 'linear-gradient(160deg, #b8d4ff 0%, #d6e8ff 18%, #eef4ff 38%, #f8f8ff 55%, #ffeef0 75%, #ffc8cc 100%)', backgroundAttachment: 'fixed' }}>
