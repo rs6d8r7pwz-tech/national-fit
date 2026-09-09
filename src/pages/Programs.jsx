@@ -554,12 +554,29 @@ ${isCardio ? `{
           {isLoading ? (
             <div className="flex justify-center py-12"><Loader2 className="h-8 w-8 animate-spin" style={{ color: `hsl(${themePersonality.colors.primary})` }} /></div>
           ) : programs.length === 0 ? (
-            <div className="text-center py-16">
-              <div className="h-20 w-20 rounded-2xl flex items-center justify-center mx-auto mb-4" style={{ background: `hsla(${themePersonality.colors.primary}, 0.1)`, border: `1px solid hsla(${themePersonality.colors.primary}, 0.3)` }}>
-                <Dumbbell className="h-10 w-10" style={{ color: `hsl(${themePersonality.colors.primary})` }} />
-              </div>
+            <div className="text-center py-12 px-1">
+              <motion.div
+                initial={{ scale: 0.6, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ type: 'spring', stiffness: 200, damping: 16 }}
+                className="relative mx-auto mb-5 h-24 w-24"
+              >
+                <div className="absolute inset-0 rounded-3xl neon-pulse" style={{ background: `hsl(${themePersonality.colors.primary} / 0.12)` }} />
+                <div className="relative h-24 w-24 rounded-3xl flex items-center justify-center shadow-xl" style={{ background: `linear-gradient(135deg, hsl(${themePersonality.colors.primary}), hsl(${themePersonality.colors.secondary}))` }}>
+                  <Dumbbell className="h-11 w-11 text-white" />
+                </div>
+              </motion.div>
               <h3 className="font-heading text-2xl tracking-wider" style={{ color: `hsl(${themePersonality.colors.primary})` }}>{t('noPrograms')}</h3>
-              <p className="text-muted-foreground mt-2 italic">"{language === 'fr' ? "Chaque champion a commencé par sa première séance. Lance-toi !" : "Every champion started with their first session. Let's go!"}"</p>
+              <p className="text-muted-foreground mt-2 mb-5 max-w-xs mx-auto">{language === 'fr' ? "Ton coach IA te crée un programme sur-mesure en 30 secondes." : "Your AI coach builds a tailored program in 30 seconds."}</p>
+              <div className="flex flex-wrap justify-center gap-2 mb-6">
+                {(language === 'fr' ? ['Personnalisé', 'En 30 secondes', 'Coaching IA'] : ['Personalized', 'In 30 seconds', 'AI coaching']).map(chip => (
+                  <span key={chip} className="text-xs font-semibold px-3 py-1.5 rounded-full glass-card" style={{ color: `hsl(${themePersonality.colors.primary})` }}>{chip}</span>
+                ))}
+              </div>
+              <Button onClick={openWizard} disabled={!profile} className="gap-2 font-heading tracking-wider text-white shadow-lg hulk-glow px-7 py-6 text-base" style={{ background: `linear-gradient(135deg, hsl(${themePersonality.colors.primary}), hsl(${themePersonality.colors.secondary}))` }}>
+                <Sparkles className="h-5 w-5" />
+                {language === 'fr' ? 'Créer mon premier programme' : 'Create my first program'}
+              </Button>
             </div>
           ) : (
             <div className="space-y-4">
