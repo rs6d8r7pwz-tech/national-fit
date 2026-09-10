@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -18,6 +18,7 @@ import FitnessScores from '@/components/dashboard/FitnessScores';
 import UserGoalsWidget from '@/components/goals/UserGoalsWidget';
 import OnboardingTutorial from '@/components/onboarding/OnboardingTutorial';
 import NotificationSetup from '@/components/notifications/NotificationSetup';
+import { useNotifications } from '@/hooks/useNotifications';
 import { getLevel } from '@/lib/levels';
 import EmptyProgramCTA from '@/components/dashboard/EmptyProgramCTA';
 import PostOnboardingTrial from '@/components/dashboard/PostOnboardingTrial';
@@ -67,6 +68,26 @@ export default function Dashboard() {
   });
 
   const profile = profiles?.[0];
+
+  // Ré-arme les rappels du jour à chaque ouverture (récurrence fiable sans serveur).
+  const notif = useNotifications();
+  useEffect(() => {
+    const prof = profiles?.[0];
+    if (!prof) return;
+    const today = new Date().toISOString().split('T')[0];
+    const active = programs.find(p => p.is_active && !p.completed);
+    const idx = active?.sessions_done || 0;
+    const sessName = active?.sessions?.[idx]?.name;
+    const doneToday = prof.last_workout_date === today
+      || progressEntries.some(e => e.date === today && e.workout_completed);
+    notif.armDailyReminders({
+      firstName: prof.first_name,
+      sessionName: sessName,
+      streak: prof.streak_days || 0,
+      doneToday,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profiles, programs, progressEntries]);
 
   if (loadingProfile) {
     return (
@@ -148,6 +169,13 @@ export default function Dashboard() {
         </motion.div>
       )}
 
+      {/* Rappels -- proposé tôt pour maximiser l'activation (clé de la rétention) */}
+      {profile && (
+        <motion.div variants={fadeUp}>
+          <NotificationSetup profile={profile} nextSession={nextSession} />
+        </motion.div>
+      )}
+
       {/* CTA si aucun programme */}
       {hasNoProgram && (
         <motion.div variants={fadeUp}>
@@ -204,13 +232,6 @@ export default function Dashboard() {
       {profile && (
         <motion.div variants={fadeUp}>
           <UserGoalsWidget profile={profile} />
-        </motion.div>
-      )}
-
-      {/* Notifications setup */}
-      {profile && (
-        <motion.div variants={fadeUp}>
-          <NotificationSetup profile={profile} nextSession={nextSession} />
         </motion.div>
       )}
 
