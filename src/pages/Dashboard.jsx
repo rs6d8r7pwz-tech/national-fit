@@ -10,7 +10,6 @@ import DarkStatsRow from '@/components/dashboard/DarkStatsRow';
 import DailyCheckIn from '@/components/dashboard/DailyCheckIn';
 
 import WeeklyChallenge from '@/components/dashboard/WeeklyChallenge';
-import WeeklyAISummary from '@/components/dashboard/WeeklyAISummary';
 import CoachInsights from '@/components/dashboard/CoachInsights';
 import RecoveryWidget from '@/components/dashboard/RecoveryWidget';
 import AchievementBadges from '@/components/gamification/AchievementBadges';
@@ -19,6 +18,7 @@ import UserGoalsWidget from '@/components/goals/UserGoalsWidget';
 import OnboardingTutorial from '@/components/onboarding/OnboardingTutorial';
 import NotificationSetup from '@/components/notifications/NotificationSetup';
 import { useNotifications } from '@/hooks/useNotifications';
+// WeeklyAISummary retiré : redondant avec CoachInsights (Analyse du Coach)
 import { getLevel } from '@/lib/levels';
 import EmptyProgramCTA from '@/components/dashboard/EmptyProgramCTA';
 import PostOnboardingTrial from '@/components/dashboard/PostOnboardingTrial';
@@ -184,13 +184,6 @@ export default function Dashboard() {
         </motion.div>
       )}
 
-      {/* Rappels -- proposé tôt pour maximiser l'activation (clé de la rétention) */}
-      {profile && (
-        <motion.div variants={fadeUp}>
-          <NotificationSetup profile={profile} nextSession={nextSession} />
-        </motion.div>
-      )}
-
       {/* CTA si aucun programme */}
       {hasNoProgram && (
         <motion.div variants={fadeUp}>
@@ -257,10 +250,12 @@ export default function Dashboard() {
         </motion.div>
       )}
 
-      {/* Weekly AI Summary */}
-      <motion.div variants={fadeUp}>
-        <WeeklyAISummary profile={profile} progressEntries={progressEntries} programs={programs} />
-      </motion.div>
+      {/* Rappels d'entraînement -- descendu en bas pour alléger le haut du tableau de bord */}
+      {profile && (
+        <motion.div variants={fadeUp}>
+          <NotificationSetup profile={profile} nextSession={nextSession} />
+        </motion.div>
+      )}
     </motion.div>
     </>
   );
