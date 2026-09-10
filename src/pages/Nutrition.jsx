@@ -377,11 +377,22 @@ export default function Nutrition() {
         <TabsContent value="plans" className="mt-4">
           {plans.length === 0 ? (
             <div className="text-center py-16">
-              <div className="h-20 w-20 rounded-2xl flex items-center justify-center mx-auto mb-4" style={{ background: `hsla(${themePersonality.colors.primary}, 0.1)`, border: `1px solid hsla(${themePersonality.colors.primary}, 0.3)` }}>
-                <UtensilsCrossed className="h-10 w-10" style={{ color: `hsl(${themePersonality.colors.primary})` }} />
+              <div className="relative h-20 w-20 mx-auto mb-4">
+                <div className="absolute inset-0 rounded-2xl neon-pulse" style={{ background: `hsl(${themePersonality.colors.primary} / 0.12)` }} />
+                <div className="relative h-20 w-20 rounded-2xl flex items-center justify-center" style={{ background: `linear-gradient(135deg, hsl(${themePersonality.colors.primary}), hsl(${themePersonality.colors.accent}))`, boxShadow: `0 0 30px hsla(${themePersonality.colors.primary}, 0.4)` }}>
+                  <UtensilsCrossed className="h-10 w-10 text-white" />
+                </div>
               </div>
               <h3 className="font-heading text-2xl tracking-wider" style={{ color: `hsl(${themePersonality.colors.primary})` }}>{t('emptyPlate')}</h3>
-              <p className="text-muted-foreground mt-2 italic">"{language === 'fr' ? 'Génère ton plan alimentaire personnalisé.' : 'Generate your personalized meal plan.'}"</p>
+              <p className="text-muted-foreground mt-2 mb-4 leading-relaxed max-w-xs mx-auto">{language === 'fr' ? 'Ton coach IA compose un plan alimentaire adapté à ton objectif, en quelques secondes.' : 'Your AI coach builds a meal plan matched to your goal, in seconds.'}</p>
+              <div className="flex flex-wrap gap-2 justify-center mb-5">
+                {(language === 'fr' ? ['Sur-mesure', 'Équilibré', 'Coaching IA'] : ['Tailored', 'Balanced', 'AI coaching']).map(chip => (
+                  <span key={chip} className="text-xs font-semibold px-3 py-1.5 rounded-full glass-card" style={{ color: `hsl(${themePersonality.colors.primary})` }}>{chip}</span>
+                ))}
+              </div>
+              <Button onClick={() => { setShowMealSelector(true); setSelectedMeals(['breakfast', 'lunch', 'snack', 'dinner']); }} className="gap-2 font-heading tracking-wider text-white shadow-lg hulk-glow px-7 py-6 text-base" style={{ background: `linear-gradient(135deg, hsl(${themePersonality.colors.primary}), hsl(${themePersonality.colors.secondary}))` }}>
+                <Sparkles className="h-5 w-5" /> {language === 'fr' ? 'Générer mon plan' : 'Generate my plan'}
+              </Button>
             </div>
           ) : (
             <div className="space-y-4">
