@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    --font-heading: 'Bangers', cursive;
+    --font-heading: 'Anton', 'Arial Narrow', sans-serif;
     --font-body: 'Inter', sans-serif;
 
     /* NATIONAL FIT — Light Mode France */
@@ -57,6 +57,7 @@
   body {
     @apply bg-background text-foreground font-body;
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
     -webkit-tap-highlight-color: transparent;
     overscroll-behavior-y: none;
   }
@@ -82,7 +83,8 @@
 /* Heading font */
 .font-heading {
   font-family: var(--font-heading);
-  letter-spacing: 0.04em;
+  font-weight: 400;
+  letter-spacing: 0.012em;
 }
 
 /* National Fit gradient text — bleu blanc rouge */
