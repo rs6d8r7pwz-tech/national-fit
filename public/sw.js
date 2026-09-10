@@ -39,3 +39,37 @@ self.addEventListener('fetch', (event) => {
       })
   );
 });
+
+// --- Rappels : rendre les notifications cliquables ---
+// Un clic sur un rappel ré-ouvre (ou focus) l'app plutôt que de ne rien faire.
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  const targetUrl = (event.notification.data && event.notification.data.url) || '/';
+  event.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+      for (const client of clientList) {
+        if ('focus' in client) return client.focus();
+      }
+      if (self.clients.openWindow) return self.clients.openWindow(targetUrl);
+      return undefined;
+    })
+  );
+});
+
+// --- Prêt pour un futur serveur push (VAPID) ---
+// Sans serveur push configuré, cet écouteur reste inactif ; il permet
+// d'ajouter plus tard de vrais rappels "app fermée" sans retoucher le SW.
+self.addEventListener('push', (event) => {
+  let payload = {};
+  try { payload = event.data ? event.data.json() : {}; } catch { payload = {}; }
+  const title = payload.title || 'National Fit';
+  const options = {
+    body: payload.body || 'Ta séance t\'attend 💪',
+    icon: '/logo192.png',
+    badge: '/logo192.png',
+    tag: payload.tag || 'nfit-push',
+    renotify: true,
+    data: { url: payload.url || '/' },
+  };
+  event.waitUntil(self.registration.showNotification(title, options));
+});
