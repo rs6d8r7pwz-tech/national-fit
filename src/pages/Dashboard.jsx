@@ -23,6 +23,8 @@ import { getLevel } from '@/lib/levels';
 import EmptyProgramCTA from '@/components/dashboard/EmptyProgramCTA';
 import PostOnboardingTrial from '@/components/dashboard/PostOnboardingTrial';
 import StreakRecovery from '@/components/dashboard/StreakRecovery';
+import FirstWinSession from '@/components/dashboard/FirstWinSession';
+import ProgressionSummary from '@/components/dashboard/ProgressionSummary';
 
 const TUTORIAL_KEY = 'nationalfit_tutorial_done';
 
@@ -150,6 +152,19 @@ export default function Dashboard() {
         <PostOnboardingTrial />
       </motion.div>
 
+      {/* Première victoire en 5 min -- montré aux tout nouveaux (0 séance) */}
+      {profile && (
+        <motion.div variants={fadeUp}>
+          <FirstWinSession
+            profile={profile}
+            onComplete={() => {
+              queryClient.invalidateQueries({ queryKey: ['userProfile'] });
+              queryClient.invalidateQueries({ queryKey: ['workoutSessions'] });
+            }}
+          />
+        </motion.div>
+      )}
+
       {/* Daily Check-In -- shown if not done today */}
       <AnimatePresence>
         {!checkInDone && (
@@ -194,6 +209,13 @@ export default function Dashboard() {
       <motion.div variants={fadeUp}>
         <DarkStatsRow progressEntries={progressEntries} programs={programs} profile={profile} />
       </motion.div>
+
+      {/* Progression visible -- preuves concrètes de progrès (débutants) */}
+      {profile && (
+        <motion.div variants={fadeUp}>
+          <ProgressionSummary profile={profile} />
+        </motion.div>
+      )}
 
       {/* Recovery Widget -- affiché si check-in fait aujourd'hui */}
       <motion.div variants={fadeUp}>
