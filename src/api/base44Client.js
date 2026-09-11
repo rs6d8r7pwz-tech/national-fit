@@ -207,19 +207,37 @@ async function InvokeLLM({ prompt, response_json_schema }) {
       .replace(/^\s*```(?:json)?\s*/i, '')
       .replace(/\s*```\s*$/i, '')
       .trim();
+    let parsed;
     try {
-      return JSON.parse(cleaned);
+      parsed = JSON.parse(cleaned);
     } catch {
       // Dernier recours : extraire le premier objet JSON complet de la réponse.
       const start = cleaned.indexOf('{');
       const end = cleaned.lastIndexOf('}');
       if (start !== -1 && end > start) {
-        try { return JSON.parse(cleaned.slice(start, end + 1)); } catch { /* noop */ }
+        try { parsed = JSON.parse(cleaned.slice(start, end + 1)); } catch { /* noop */ }
       }
-      // Échec réel : on lève une erreur plutôt que de renvoyer un objet vide
-      // (sinon l'app créait un programme sans aucune séance, sans prévenir).
-      throw new Error('Réponse IA illisible. Réessaie ou utilise le programme débutant prêt à l\'emploi.');
+      if (parsed === undefined) {
+        // Échec réel : on lève une erreur plutôt que de renvoyer un objet vide
+        // (sinon l'app créait un programme sans aucune séance, sans prévenir).
+        throw new Error('Réponse IA illisible. Réessaie ou utilise le programme débutant prêt à l\'emploi.');
+      }
     }
+    // Certains modèles (ex: Groq) enveloppent tout le résultat sous une clé
+    // parente arbitraire ("program", "programme", "data"...). Les vraies réponses
+    // de l'app ont plusieurs clés à la racine, donc un objet à UNE seule clé dont
+    // la valeur est un objet/tableau est un emballage : on le déballe (max 3 niveaux).
+    let depth = 0;
+    while (
+      parsed && typeof parsed === 'object' && !Array.isArray(parsed) &&
+      Object.keys(parsed).length === 1 &&
+      parsed[Object.keys(parsed)[0]] && typeof parsed[Object.keys(parsed)[0]] === 'object' &&
+      depth < 3
+    ) {
+      parsed = parsed[Object.keys(parsed)[0]];
+      depth += 1;
+    }
+    return parsed;
   }
   return text;
 }
