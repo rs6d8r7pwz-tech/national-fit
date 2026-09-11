@@ -338,25 +338,29 @@ ${language === 'fr' ? 'RÈGLES OBLIGATOIRES' : 'MANDATORY RULES'}:
       <SmartPaywall trigger={showPaywall} reason="program_limit" onClose={() => setShowPaywall(false)} />
       <GeneratingLoader visible={generating} />
       {genError && (
-        <div className="flex items-center gap-3 rounded-xl border border-red-400/40 bg-red-500/10 p-4 text-sm">
-          <AlertTriangle className="h-5 w-5 text-red-400 shrink-0" />
-          <span className="flex-1 text-red-200">{genError}</span>
-          <Button
-            size="sm"
-            variant="outline"
-            className="text-xs border-red-400/40 text-red-100 hover:bg-red-500/10"
-            onClick={useStarter}>
-            {language === 'fr' ? 'Programme débutant prêt' : 'Ready beginner program'}
-          </Button>
-          <Button
-            size="sm"
-            className="text-xs bg-red-500/80 hover:bg-red-500 text-white"
-            onClick={() => { setGenError(null); generateProgram(); }}>
-            {language === 'fr' ? 'Réessayer' : 'Retry'}
-          </Button>
-          <button onClick={() => setGenError(null)}>
-            <X className="h-4 w-4 text-red-300 hover:text-red-200" />
-          </button>
+        <div className="rounded-xl border border-red-400/40 bg-red-500/10 p-4 text-sm">
+          <div className="flex items-start gap-3">
+            <AlertTriangle className="h-5 w-5 text-red-400 shrink-0 mt-0.5" />
+            <span className="flex-1 text-red-200">{genError}</span>
+            <button onClick={() => setGenError(null)} className="shrink-0" aria-label="Fermer">
+              <X className="h-4 w-4 text-red-300 hover:text-red-200" />
+            </button>
+          </div>
+          <div className="mt-3 flex flex-wrap gap-2 sm:pl-8">
+            <Button
+              size="sm"
+              variant="outline"
+              className="text-xs border-red-400/40 text-red-100 hover:bg-red-500/10"
+              onClick={useStarter}>
+              {language === 'fr' ? 'Programme débutant prêt' : 'Ready beginner program'}
+            </Button>
+            <Button
+              size="sm"
+              className="text-xs bg-red-500/80 hover:bg-red-500 text-white"
+              onClick={() => { setGenError(null); generateProgram(); }}>
+              {language === 'fr' ? 'Réessayer' : 'Retry'}
+            </Button>
+          </div>
         </div>
       )}
       <div className="flex items-center justify-between">
