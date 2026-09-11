@@ -16,7 +16,7 @@ const GOAL_LABELS_EN = {
 };
 
 const HERO_CACHE_KEY = 'nationalfit_hero_msg';
-const HERO_TTL = 6 * 60 * 60 * 1000;
+const HERO_TTL = 24 * 60 * 60 * 1000;
 const FALLBACKS_FR = [
   "La force naît de la discipline. Aucune excuse.",
   "Chaque rep te rapproche de ton objectif.",
