@@ -19,8 +19,19 @@ const MAX_ATTEMPTS = 2; // par fournisseur
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // Construit la liste ordonnée des fournisseurs disponibles.
+// ORDRE : Groq d'abord (tier gratuit plus généreux et rapide), Gemini en fallback.
+// Le gratuit Gemini est vite en quota (429) → l'essayer en premier faisait perdre
+// ~1,7 s par appel. Si un jour tu actives la facturation Gemini, remets-le en premier.
 function providers() {
   const list = [];
+  if (process.env.GROQ_API_KEY) {
+    list.push({
+      name: 'groq',
+      baseUrl: process.env.GROQ_BASE_URL || 'https://api.groq.com/openai/v1',
+      model: process.env.GROQ_MODEL || 'openai/gpt-oss-120b',
+      key: process.env.GROQ_API_KEY,
+    });
+  }
   const geminiKey = process.env.AI_API_KEY || process.env.GEMINI_API_KEY;
   if (geminiKey) {
     list.push({
@@ -28,14 +39,6 @@ function providers() {
       baseUrl: process.env.AI_BASE_URL || 'https://generativelanguage.googleapis.com/v1beta/openai',
       model: process.env.AI_MODEL || 'gemini-flash-latest',
       key: geminiKey,
-    });
-  }
-  if (process.env.GROQ_API_KEY) {
-    list.push({
-      name: 'groq',
-      baseUrl: process.env.GROQ_BASE_URL || 'https://api.groq.com/openai/v1',
-      model: process.env.GROQ_MODEL || 'openai/gpt-oss-120b',
-      key: process.env.GROQ_API_KEY,
     });
   }
   return list;
