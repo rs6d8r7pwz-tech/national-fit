@@ -103,7 +103,7 @@ export default async function handler(req, res) {
 
   const messages = response_json_schema
     ? [
-        { role: 'system', content: 'Réponds uniquement en JSON valide.' },
+        { role: 'system', content: 'Réponds uniquement avec un objet JSON valide. Place toutes les clés demandées directement à la racine de l\'objet, sans jamais les envelopper dans une clé parente (pas de "program", "programme", "data", "result").' },
         { role: 'user', content: prompt },
       ]
     : [{ role: 'user', content: prompt }];
@@ -129,7 +129,7 @@ export default async function handler(req, res) {
   const msg = lastErr.text === 'timeout'
     ? "L'IA a mis trop de temps à répondre. Réessaie."
     : 'Tous les services IA sont momentanément surchargés. Réessaie dans quelques secondes.';
-  // On expose le vrai statut/motif du fournisseur (sans jamais la cle) pour faciliter le diagnostic.
+  // On expose le vrai statut/motif du fournisseur (sans jamais la clé) pour faciliter le diagnostic.
   return res.status(503).json({
     error: msg,
     provider_status: lastErr.status,
