@@ -263,25 +263,41 @@ ${language === 'fr' ? 'RÈGLES OBLIGATOIRES' : 'MANDATORY RULES'}:
     };
     const SESSION_KEYS = ['sessions', 'seances', 'séances', 'programme', 'program', 'workouts', 'entrainements', 'entraînements'];
     const EX_KEYS = ['exercises', 'exercices', 'exos', 'mouvements', 'movements', 'items'];
-    const isSessionObj = (v) =>
-      v && typeof v === 'object' && !Array.isArray(v) &&
-      (pickArr(v, EX_KEYS) || v.name || v.nom || v.jour || v.day || v.semaine);
+    const looksExercise = (o) =>
+      o && typeof o === 'object' && !Array.isArray(o) &&
+      (o.nom || o.name || o.exercice || o.exercise || o.mouvement);
+    const hasExArray = (o) =>
+      o && typeof o === 'object' && !Array.isArray(o) && !!pickArr(o, EX_KEYS);
 
-    // 1) Trouver le tableau de séances : clé connue, sinon 1er tableau d'objets « séance »,
-    //    sinon objet indexé par jour ({ "Jour 1": [ex...], ... }).
-    let rawSessions = pickArr(result, SESSION_KEYS);
-    if (!rawSessions) {
-      for (const v of Object.values(result || {})) {
-        if (Array.isArray(v) && v.length && isSessionObj(v[0])) { rawSessions = v; break; }
+    // 1) Recherche RÉCURSIVE du tableau de séances, quelle que soit la structure
+    //    renvoyée par l'IA (elle est très inconstante d'un appel à l'autre) :
+    //    - objet { sessions/seances/programme/... : [ ... ] }
+    //    - tableau de séances directement à la racine : [ {...}, {...} ]
+    //    - séances imbriquées sous n'importe quelle clé (data, result, etc.)
+    //    - objet indexé par jour : { "Jour 1": [ex...], "Jour 2": [...] }
+    //    - en dernier recours, un simple tableau d'exercices = une seule séance.
+    const findSessions = (node, depth = 0) => {
+      if (!node || typeof node !== 'object' || depth > 6) return null;
+      if (Array.isArray(node)) {
+        if (node.length && node.some(hasExArray)) return node;
+        if (node.length && node.every(looksExercise)) return [{ exercises: node }];
+        return null;
       }
-    }
-    if (!rawSessions) {
-      const dayEntries = Object.entries(result || {}).filter(
-        ([, v]) => Array.isArray(v) && v.length && typeof v[0] === 'object' && (v[0].nom || v[0].name)
+      const known = pickArr(node, SESSION_KEYS);
+      if (known && known.some(hasExArray)) return known;
+      // Objet indexé par jour ({ "Jour 1": [ex...], ... }) : à détecter AVANT de
+      // descendre dans les valeurs, sinon on ne récupérerait que le 1er jour.
+      const dayEntries = Object.entries(node).filter(
+        ([, v]) => Array.isArray(v) && v.length && v.every(looksExercise)
       );
-      if (dayEntries.length) rawSessions = dayEntries.map(([k, v]) => ({ name: k, exercises: v }));
-    }
-    rawSessions = rawSessions || [];
+      if (dayEntries.length) return dayEntries.map(([k, v]) => ({ name: k, exercises: v }));
+      for (const v of Object.values(node)) {
+        const found = findSessions(v, depth + 1);
+        if (found) return found;
+      }
+      return null;
+    };
+    let rawSessions = findSessions(result) || [];
 
     const ai_summary = pickVal(result, ['ai_summary', 'resume', 'résumé', 'summary']) || '';
     const muscle_focus_summary = pickVal(result, ['muscle_focus_summary', 'muscles', 'focus_musculaire']) || '';
@@ -324,16 +340,22 @@ ${language === 'fr' ? 'RÈGLES OBLIGATOIRES' : 'MANDATORY RULES'}:
       return {
         day: prettyLabel(dayVal, idx, 'day'),
         name: prettyLabel(nameVal, idx, 'name'),
-        exercises: exList.map(ex => ({
-          name: pickVal(ex, ['name', 'nom', 'exercice', 'exercise', 'mouvement']) || (language === 'fr' ? 'Exercice' : 'Exercise'),
-          alternative: pickVal(ex, ['alternative', 'variante', 'alt']) || (language === 'fr' ? 'Variante' : 'Alternative'),
-          sets: pickVal(ex, ['sets', 'series', 'séries', 'nbSeries']) || intensityData.sets,
-          reps: pickVal(ex, ['reps', 'repetitions', 'répétitions', 'rep']) || intensityData.reps,
-          rest_seconds: pickVal(ex, ['rest_seconds', 'reposSec', 'repos', 'rest', 'reposSecondes']) || intensityData.rest,
-          notes: pickVal(ex, ['notes', 'note', 'conseil', 'conseils', 'astuce']) || '',
-          muscle_group: pickVal(ex, ['muscle_group', 'muscle', 'groupe', 'groupeMusculaire']) || 'general',
-          target_areas: pickVal(ex, ['target_areas', 'zones', 'zones_ciblees']) || ''
-        }))
+        exercises: exList.map(ex => {
+          // L'IA varie les formes : alternative peut être un tableau, repos peut
+          // valoir "90s" (chaîne). On normalise en valeur simple / nombre.
+          const altRaw = pickVal(ex, ['alternative', 'alternatives', 'variante', 'alt']);
+          const restRaw = pickVal(ex, ['rest_seconds', 'reposSec', 'repos', 'rest', 'reposSecondes']);
+          return {
+            name: pickVal(ex, ['name', 'nom', 'exercice', 'exercise', 'mouvement']) || (language === 'fr' ? 'Exercice' : 'Exercise'),
+            alternative: (Array.isArray(altRaw) ? altRaw[0] : altRaw) || (language === 'fr' ? 'Variante' : 'Alternative'),
+            sets: Number(pickVal(ex, ['sets', 'series', 'séries', 'nbSeries'])) || intensityData.sets,
+            reps: String(pickVal(ex, ['reps', 'repetitions', 'répétitions', 'rep']) || intensityData.reps),
+            rest_seconds: parseInt(String(restRaw), 10) || intensityData.rest,
+            notes: pickVal(ex, ['notes', 'note', 'conseil', 'conseils', 'astuce']) || '',
+            muscle_group: pickVal(ex, ['muscle_group', 'muscle', 'groupe', 'groupeMusculaire']) || 'general',
+            target_areas: pickVal(ex, ['target_areas', 'zones', 'zones_ciblees']) || ''
+          };
+        })
       };
     });
 
