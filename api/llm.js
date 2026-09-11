@@ -129,5 +129,10 @@ export default async function handler(req, res) {
   const msg = lastErr.text === 'timeout'
     ? "L'IA a mis trop de temps à répondre. Réessaie."
     : 'Tous les services IA sont momentanément surchargés. Réessaie dans quelques secondes.';
-  return res.status(503).json({ error: msg });
+  // On expose le vrai statut/motif du fournisseur (sans jamais la cle) pour faciliter le diagnostic.
+  return res.status(503).json({
+    error: msg,
+    provider_status: lastErr.status,
+    provider_detail: String(lastErr.text || '').slice(0, 300),
+  });
 }
