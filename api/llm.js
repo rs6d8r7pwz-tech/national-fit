@@ -11,7 +11,7 @@
 // (ex: 503 "high demand"). Actif seulement si GROQ_API_KEY est défini.
 //   GROQ_API_KEY  = <ta clé console.groq.com>
 //   GROQ_BASE_URL = https://api.groq.com/openai/v1   (optionnel)
-//   GROQ_MODEL    = openai/gpt-oss-20b               (optionnel)
+//   GROQ_MODEL    = llama-3.3-70b-versatile               (optionnel)
 
 const RETRYABLE = new Set([429, 500, 502, 503, 504]);
 const MAX_ATTEMPTS = 2; // par fournisseur
