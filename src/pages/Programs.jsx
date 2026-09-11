@@ -247,10 +247,35 @@ ${language === 'fr' ? 'RÈGLES OBLIGATOIRES' : 'MANDATORY RULES'}:
       }
     });
 
-    const { ai_summary, muscle_focus_summary, ...programData } = result;
-    
+    // Normalisation défensive : selon le modèle IA, les séances peuvent être à la
+    // racine ("sessions"), imbriquées sous une clé enfant (program/programme/data),
+    // ou l'objet peut être indexé par jour ({jour1, jour2, ...}) sans tableau
+    // "sessions". On reconstruit toujours un tableau de séances exploitable.
+    const looksLikeSession = (v) =>
+      v && typeof v === 'object' && !Array.isArray(v) && (Array.isArray(v.exercises) || v.name || v.day);
+    const findContainer = (obj) => {
+      if (!obj || typeof obj !== 'object') return {};
+      if (Array.isArray(obj.sessions)) return obj;
+      for (const v of Object.values(obj)) {
+        if (v && typeof v === 'object' && Array.isArray(v.sessions)) return v;
+      }
+      return obj;
+    };
+    const container = findContainer(result);
+    const rawSessions = Array.isArray(container.sessions)
+      ? container.sessions
+      : Object.values(result || {}).filter(looksLikeSession);
+    const ai_summary = container.ai_summary || result?.ai_summary || '';
+    const muscle_focus_summary = container.muscle_focus_summary || result?.muscle_focus_summary || '';
+    const programData = {
+      title: container.title || result?.title,
+      description: container.description || result?.description,
+      level: container.level || result?.level,
+      goal: container.goal || result?.goal,
+    };
+
     // Nettoyer et valider la structure des sessions
-    const cleanSessions = (programData.sessions || []).map((session, idx) => {
+    const cleanSessions = (rawSessions || []).map((session, idx) => {
       if (!session || typeof session !== 'object') {
         return {
           day: `Jour ${idx + 1}`,
