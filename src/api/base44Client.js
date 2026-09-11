@@ -181,11 +181,19 @@ async function InvokeLLM({ prompt, response_json_schema }) {
 
   if (!res.ok) {
     let detail = '';
+    let providerStatus = res.status;
     try {
       const err = await res.json();
       detail = err.error || '';
+      if (err.provider_status) providerStatus = err.provider_status;
     } catch {
       // réponse non-JSON, on garde le message générique
+    }
+    // Message honnête en cas de quota épuisé (429) : inutile de spammer "réessaie".
+    if (providerStatus === 429) {
+      const e = new Error('Le service IA a atteint sa limite pour le moment. Utilise le programme débutant prêt à l\'emploi ci-dessous, ou réessaie plus tard.');
+      e.code = 'quota';
+      throw e;
     }
     throw new Error(detail || `Erreur IA (${res.status}). Réessaie dans un instant.`);
   }
@@ -193,7 +201,25 @@ async function InvokeLLM({ prompt, response_json_schema }) {
   const { text = '' } = await res.json();
 
   if (response_json_schema) {
-    try { return JSON.parse(text); } catch { return {}; }
+    // Certains modèles enrobent le JSON dans des balises Markdown ```json ... ``` :
+    // on nettoie avant de parser pour éviter un programme vide en silence.
+    const cleaned = String(text)
+      .replace(/^\s*```(?:json)?\s*/i, '')
+      .replace(/\s*```\s*$/i, '')
+      .trim();
+    try {
+      return JSON.parse(cleaned);
+    } catch {
+      // Dernier recours : extraire le premier objet JSON complet de la réponse.
+      const start = cleaned.indexOf('{');
+      const end = cleaned.lastIndexOf('}');
+      if (start !== -1 && end > start) {
+        try { return JSON.parse(cleaned.slice(start, end + 1)); } catch { /* noop */ }
+      }
+      // Échec réel : on lève une erreur plutôt que de renvoyer un objet vide
+      // (sinon l'app créait un programme sans aucune séance, sans prévenir).
+      throw new Error('Réponse IA illisible. Réessaie ou utilise le programme débutant prêt à l\'emploi.');
+    }
   }
   return text;
 }
