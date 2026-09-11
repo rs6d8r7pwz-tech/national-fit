@@ -262,9 +262,19 @@ ${language === 'fr' ? 'RÈGLES OBLIGATOIRES' : 'MANDATORY RULES'}:
       return obj;
     };
     const container = findContainer(result);
-    const rawSessions = Array.isArray(container.sessions)
+    let rawSessions = Array.isArray(container.sessions)
       ? container.sessions
       : Object.values(result || {}).filter(looksLikeSession);
+    // Cas fréquent des petits modèles : objet indexé par jour dont la valeur est
+    // directement le tableau d'exercices ({ "Jour 1": [ex, ex], "Jour 2": [...] }).
+    if ((!rawSessions || rawSessions.length === 0) && result && typeof result === 'object') {
+      const dayEntries = Object.entries(result).filter(
+        ([, v]) => Array.isArray(v) && v.length && typeof v[0] === 'object'
+      );
+      if (dayEntries.length) {
+        rawSessions = dayEntries.map(([k, v]) => ({ day: k, name: k, exercises: v }));
+      }
+    }
     const ai_summary = container.ai_summary || result?.ai_summary || '';
     const muscle_focus_summary = container.muscle_focus_summary || result?.muscle_focus_summary || '';
     const programData = {
