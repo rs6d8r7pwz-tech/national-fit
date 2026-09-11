@@ -1,9 +1,9 @@
 /**
  * Hook pour les rappels locaux (séance du jour & streak).
- * Utilise l'API Notification du navigateur -- pas de serveur requis.
+ * Utilise l'API Notification du navigateur — pas de serveur requis.
  *
  * Fiabilité : les notifications passent par le Service Worker
- * (registration.showNotification) quand il est dispo -- indispensable sur
+ * (registration.showNotification) quand il est dispo — indispensable sur
  * Android / PWA installée, et rend la notif cliquable (voir sw.js).
  * Limite connue : une notification ne peut PAS se déclencher quand l'app est
  * complètement fermée sans un vrai serveur push (VAPID). Ici on ré-arme les
@@ -56,7 +56,7 @@ export function useNotifications() {
   }
 
   /**
-   * Affiche une notification -- via le Service Worker si possible (fiable +
+   * Affiche une notification — via le Service Worker si possible (fiable +
    * cliquable), sinon via l'API Notification classique.
    */
   async function deliver(title, body, tag) {
@@ -76,7 +76,7 @@ export function useNotifications() {
 
   /**
    * Planifie une notification locale dans X millisecondes (setTimeout : ne
-   * survit pas à la fermeture de l'onglet -- on ré-arme à chaque ouverture).
+   * survit pas à la fermeture de l'onglet — on ré-arme à chaque ouverture).
    */
   function scheduleNotification({ title, body, delayMs = 0, tag }) {
     if (!isSupported || Notification.permission !== 'granted') return;
@@ -108,7 +108,7 @@ export function useNotifications() {
     if (delayMs == null) return;
     scheduleNotification({
       title: `💪 C'est l'heure ${profileFirstName || ''} !`.trim(),
-      body: sessionName ? `Séance du jour : ${sessionName}` : `Ta séance t'attend -- Let's go !`,
+      body: sessionName ? `Séance du jour : ${sessionName}` : `Ta séance t'attend — Let's go !`,
       delayMs,
       tag: 'nfit-workout',
     });
@@ -124,7 +124,7 @@ export function useNotifications() {
     if (delayMs == null) return;
     scheduleNotification({
       title: `🔥 Streak en danger, ${profileFirstName || ''} !`.trim(),
-      body: `${streak} jours de suite -- ne laisse pas tomber aujourd'hui !`,
+      body: `${streak} jours de suite — ne laisse pas tomber aujourd'hui !`,
       delayMs,
       tag: 'nfit-streak',
     });
