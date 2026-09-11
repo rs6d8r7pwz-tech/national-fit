@@ -284,6 +284,18 @@ ${language === 'fr' ? 'RÈGLES OBLIGATOIRES' : 'MANDATORY RULES'}:
       goal: container.goal || result?.goal,
     };
 
+    // Étiquette « générique » renvoyée par l'IA (ex: "seance1", "Jour 2", "day3",
+    // "session1") → on la remplace par un joli libellé numéroté. Un vrai nom
+    // (ex: "Push", "Pec/Triceps") est conservé tel quel.
+    const GENERIC = /^(s[ée]ance|jour|day|session|training|entra[îi]nement|workout)[\s_-]*\d*$/i;
+    const prettyLabel = (val, idx, kind) => {
+      const fallback = kind === 'day'
+        ? (language === 'fr' ? `Jour ${idx + 1}` : `Day ${idx + 1}`)
+        : (language === 'fr' ? `Séance ${idx + 1}` : `Session ${idx + 1}`);
+      if (!val || GENERIC.test(String(val).trim())) return fallback;
+      return val;
+    };
+
     // Nettoyer et valider la structure des sessions
     const cleanSessions = (rawSessions || []).map((session, idx) => {
       if (!session || typeof session !== 'object') {
@@ -294,8 +306,8 @@ ${language === 'fr' ? 'RÈGLES OBLIGATOIRES' : 'MANDATORY RULES'}:
         };
       }
       return {
-        day: session.day || (language === 'fr' ? `Jour ${idx + 1}` : `Day ${idx + 1}`),
-        name: session.name || (language === 'fr' ? `Séance ${idx + 1}` : `Session ${idx + 1}`),
+        day: prettyLabel(session.day, idx, 'day'),
+        name: prettyLabel(session.name, idx, 'name'),
         exercises: (session.exercises || []).map(ex => ({
           name: ex.name || (language === 'fr' ? 'Exercice' : 'Exercise'),
           alternative: ex.alternative || (language === 'fr' ? 'Variante' : 'Alternative'),
