@@ -49,7 +49,10 @@ async function callProvider(p, messages, jsonMode) {
     model: p.model,
     messages,
     temperature: 0.7,
-    max_tokens: 4096,
+    // Un programme complet (12 séances × 5-7 exercices) est volumineux. À 4096,
+    // le JSON était tronqué en plein milieu → réponse invalide → 400 "Failed to
+    // generate JSON". On monte la limite pour laisser le modèle finir son JSON.
+    max_tokens: 8192,
     ...(jsonMode && { response_format: { type: 'json_object' } }),
   };
 
@@ -113,20 +116,18 @@ export default async function handler(req, res) {
 
   let lastErr = { status: 502, text: 'Erreur inconnue.' };
 
-  // On essaie chaque fournisseur dans l'ordre ; on bascule au suivant si échec récupérable.
+  // On essaie chaque fournisseur dans l'ordre et on bascule au suivant à CHAQUE
+  // échec — y compris une erreur "non récupérable" comme le 400 de Groq
+  // ("Failed to generate JSON"). Groq échoue parfois à produire du JSON valide
+  // alors que Gemini y arrive : couper la chaîne au premier échec privait
+  // l'utilisateur du fallback et faisait échouer la génération. On ne renvoie
+  // donc l'erreur qu'après avoir épuisé TOUS les fournisseurs.
   for (const p of list) {
     const result = await callProvider(p, messages, !!response_json_schema);
     if (result.ok) {
       return res.status(200).json({ text: result.text });
     }
-    lastErr = { status: result.status, text: result.text };
-    // Erreur non récupérable (ex: 400/401) → inutile de basculer, on renvoie tout de suite.
-    if (!result.retryable) {
-      return res
-        .status(result.status)
-        .json({ error: `Fournisseur IA (${p.name}): ${result.status} ${result.text}`.slice(0, 500) });
-    }
-    // sinon on passe au fournisseur suivant (fallback)
+    lastErr = { status: result.status, text: result.text, name: p.name };
   }
 
   const msg = lastErr.text === 'timeout'
