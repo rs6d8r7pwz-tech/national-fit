@@ -247,83 +247,101 @@ ${language === 'fr' ? 'RÈGLES OBLIGATOIRES' : 'MANDATORY RULES'}:
       }
     });
 
-    // Normalisation défensive : selon le modèle IA, les séances peuvent être à la
-    // racine ("sessions"), imbriquées sous une clé enfant (program/programme/data),
-    // ou l'objet peut être indexé par jour ({jour1, jour2, ...}) sans tableau
-    // "sessions". On reconstruit toujours un tableau de séances exploitable.
-    const looksLikeSession = (v) =>
-      v && typeof v === 'object' && !Array.isArray(v) && (Array.isArray(v.exercises) || v.name || v.day);
-    const findContainer = (obj) => {
-      if (!obj || typeof obj !== 'object') return {};
-      if (Array.isArray(obj.sessions)) return obj;
-      for (const v of Object.values(obj)) {
-        if (v && typeof v === 'object' && Array.isArray(v.sessions)) return v;
-      }
-      return obj;
+    // Normalisation défensive. Les petits modèles IGNORENT le schéma et renvoient
+    // souvent des clés en FRANÇAIS (seances/exercices/nom...) au lieu de l'anglais
+    // (sessions/exercises/name...). On mappe donc de façon robuste, quelles que
+    // soient les clés (FR ou EN), à tous les niveaux (programme / séance / exercice).
+    const pickVal = (o, keys) => {
+      if (!o || typeof o !== 'object') return undefined;
+      for (const k of keys) { if (o[k] !== undefined && o[k] !== null && o[k] !== '') return o[k]; }
+      return undefined;
     };
-    const container = findContainer(result);
-    let rawSessions = Array.isArray(container.sessions)
-      ? container.sessions
-      : Object.values(result || {}).filter(looksLikeSession);
-    // Cas fréquent des petits modèles : objet indexé par jour dont la valeur est
-    // directement le tableau d'exercices ({ "Jour 1": [ex, ex], "Jour 2": [...] }).
-    if ((!rawSessions || rawSessions.length === 0) && result && typeof result === 'object') {
-      const dayEntries = Object.entries(result).filter(
-        ([, v]) => Array.isArray(v) && v.length && typeof v[0] === 'object'
-      );
-      if (dayEntries.length) {
-        rawSessions = dayEntries.map(([k, v]) => ({ day: k, name: k, exercises: v }));
+    const pickArr = (o, keys) => {
+      if (!o || typeof o !== 'object') return null;
+      for (const k of keys) { if (Array.isArray(o[k])) return o[k]; }
+      return null;
+    };
+    const SESSION_KEYS = ['sessions', 'seances', 'séances', 'programme', 'program', 'workouts', 'entrainements', 'entraînements'];
+    const EX_KEYS = ['exercises', 'exercices', 'exos', 'mouvements', 'movements', 'items'];
+    const isSessionObj = (v) =>
+      v && typeof v === 'object' && !Array.isArray(v) &&
+      (pickArr(v, EX_KEYS) || v.name || v.nom || v.jour || v.day || v.semaine);
+
+    // 1) Trouver le tableau de séances : clé connue, sinon 1er tableau d'objets « séance »,
+    //    sinon objet indexé par jour ({ "Jour 1": [ex...], ... }).
+    let rawSessions = pickArr(result, SESSION_KEYS);
+    if (!rawSessions) {
+      for (const v of Object.values(result || {})) {
+        if (Array.isArray(v) && v.length && isSessionObj(v[0])) { rawSessions = v; break; }
       }
     }
-    const ai_summary = container.ai_summary || result?.ai_summary || '';
-    const muscle_focus_summary = container.muscle_focus_summary || result?.muscle_focus_summary || '';
+    if (!rawSessions) {
+      const dayEntries = Object.entries(result || {}).filter(
+        ([, v]) => Array.isArray(v) && v.length && typeof v[0] === 'object' && (v[0].nom || v[0].name)
+      );
+      if (dayEntries.length) rawSessions = dayEntries.map(([k, v]) => ({ name: k, exercises: v }));
+    }
+    rawSessions = rawSessions || [];
+
+    const ai_summary = pickVal(result, ['ai_summary', 'resume', 'résumé', 'summary']) || '';
+    const muscle_focus_summary = pickVal(result, ['muscle_focus_summary', 'muscles', 'focus_musculaire']) || '';
     const programData = {
-      title: container.title || result?.title,
-      description: container.description || result?.description,
-      level: container.level || result?.level,
-      goal: container.goal || result?.goal,
+      title: pickVal(result, ['title', 'titre', 'nom', 'programme_nom']),
+      description: pickVal(result, ['description', 'desc']),
+      level: pickVal(result, ['level', 'niveau']),
+      goal: pickVal(result, ['goal', 'objectif']),
     };
 
     // Étiquette « générique » renvoyée par l'IA (ex: "seance1", "Jour 2", "day3",
     // "session1") → on la remplace par un joli libellé numéroté. Un vrai nom
-    // (ex: "Push", "Pec/Triceps") est conservé tel quel.
+    // (ex: "Push", "Pec/Triceps", "Lundi") est conservé tel quel.
     const GENERIC = /^(s[ée]ance|jour|day|session|training|entra[îi]nement|workout)[\s_-]*\d*$/i;
     const prettyLabel = (val, idx, kind) => {
       const fallback = kind === 'day'
         ? (language === 'fr' ? `Jour ${idx + 1}` : `Day ${idx + 1}`)
         : (language === 'fr' ? `Séance ${idx + 1}` : `Session ${idx + 1}`);
       if (!val || GENERIC.test(String(val).trim())) return fallback;
-      return val;
+      return String(val);
     };
 
-    // Nettoyer et valider la structure des sessions
-    const cleanSessions = (rawSessions || []).map((session, idx) => {
+    // 2) Nettoyer chaque séance et ses exercices (clés FR ou EN).
+    const cleanSessions = rawSessions.map((session, idx) => {
       if (!session || typeof session !== 'object') {
-        return {
-          day: `Jour ${idx + 1}`,
-          name: `Séance ${idx + 1}`,
-          exercises: []
-        };
+        return { day: `Jour ${idx + 1}`, name: `Séance ${idx + 1}`, exercises: [] };
+      }
+      const exList = pickArr(session, EX_KEYS) || [];
+      const jour = pickVal(session, ['jour', 'day']);
+      const semaine = pickVal(session, ['semaine', 'week']);
+      const dayVal = jour;
+      // Nom lisible : si l'IA a numéroté par semaine+jour, on combine pour distinguer
+      // les 12 séances (sinon elles s'appelleraient toutes « Lundi »).
+      let nameVal = pickVal(session, ['name', 'nom']);
+      if (!nameVal) {
+        nameVal = (semaine && jour)
+          ? (language === 'fr' ? `Semaine ${semaine} · ${jour}` : `Week ${semaine} · ${jour}`)
+          : jour;
       }
       return {
-        day: prettyLabel(session.day, idx, 'day'),
-        name: prettyLabel(session.name, idx, 'name'),
-        exercises: (session.exercises || []).map(ex => ({
-          name: ex.name || (language === 'fr' ? 'Exercice' : 'Exercise'),
-          alternative: ex.alternative || (language === 'fr' ? 'Variante' : 'Alternative'),
-          sets: ex.sets || intensityData.sets,
-          reps: ex.reps || intensityData.reps,
-          rest_seconds: ex.rest_seconds || intensityData.rest,
-          notes: ex.notes || '',
-          muscle_group: ex.muscle_group || 'general',
-          target_areas: ex.target_areas || ''
+        day: prettyLabel(dayVal, idx, 'day'),
+        name: prettyLabel(nameVal, idx, 'name'),
+        exercises: exList.map(ex => ({
+          name: pickVal(ex, ['name', 'nom', 'exercice', 'exercise', 'mouvement']) || (language === 'fr' ? 'Exercice' : 'Exercise'),
+          alternative: pickVal(ex, ['alternative', 'variante', 'alt']) || (language === 'fr' ? 'Variante' : 'Alternative'),
+          sets: pickVal(ex, ['sets', 'series', 'séries', 'nbSeries']) || intensityData.sets,
+          reps: pickVal(ex, ['reps', 'repetitions', 'répétitions', 'rep']) || intensityData.reps,
+          rest_seconds: pickVal(ex, ['rest_seconds', 'reposSec', 'repos', 'rest', 'reposSecondes']) || intensityData.rest,
+          notes: pickVal(ex, ['notes', 'note', 'conseil', 'conseils', 'astuce']) || '',
+          muscle_group: pickVal(ex, ['muscle_group', 'muscle', 'groupe', 'groupeMusculaire']) || 'general',
+          target_areas: pickVal(ex, ['target_areas', 'zones', 'zones_ciblees']) || ''
         }))
       };
     });
-    
-    // Garde-fou : une réponse sans séance = génération ratée. On bascule sur
-    // l'erreur (qui propose le programme débutant) au lieu d'un programme vide.
-    if (cleanSessions.length === 0) {
+
+    // Garde-fous : aucune séance OU aucune séance ne contient d'exercice = génération
+    // ratée. On bascule sur l'erreur (qui propose le programme débutant) au lieu
+    // d'enregistrer un programme vide.
+    const totalExercises = cleanSessions.reduce((n, s) => n + (s.exercises ? s.exercises.length : 0), 0);
+    if (cleanSessions.length === 0 || totalExercises === 0) {
       throw new Error(language === 'fr'
         ? "L'IA n'a pas pu générer de séances. Utilise le programme débutant prêt à l'emploi ci-dessous."
         : 'The AI could not generate any sessions. Use the ready-to-use beginner program below.');
