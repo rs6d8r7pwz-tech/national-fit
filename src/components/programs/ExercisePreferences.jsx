@@ -306,7 +306,7 @@ function getRecommendation(option, profile) {
 }
 
 export default function ExercisePreferences({ preferences, onChange, profile, onAutoGenerate }) {
-  const [openGroups, setOpenGroups] = useState({ chest: true });
+  const [openGroups, setOpenGroups] = useState({});
   const [generatingAuto, setGeneratingAuto] = useState(false);
   
   // Déterminer quels groupes afficher selon le mode de séance (si disponible via profile ou context)
