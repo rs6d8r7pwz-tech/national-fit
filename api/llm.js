@@ -46,7 +46,7 @@ async function callProvider(p, messages, jsonMode) {
     model: p.model,
     messages,
     temperature: 0.7,
-    max_tokens: 2000,
+    max_tokens: 4096,
     ...(jsonMode && { response_format: { type: 'json_object' } }),
   };
 
