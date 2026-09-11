@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
-import ExerciseVideoModal from '@/components/workout/ExerciseVideoModal';
+import ExerciseGuide from '@/components/workout/ExerciseGuide';
 import { useTheme } from '@/lib/ThemeContext';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -370,7 +370,7 @@ export default function LiveWorkout() {
   const [profile, setProfile] = useState(null);
   // Capture des poids par exercice: { [exerciseName]: weightKg }
   const [weights, setWeights] = useState({});
-  const [videoExercise, setVideoExercise] = useState(null);
+  const [guideExercise, setGuideExercise] = useState(null);
 
   useEffect(() => {
     base44.entities.UserProfile.list().then(p => setProfile(p?.[0] || null));
@@ -594,7 +594,7 @@ export default function LiveWorkout() {
       {/* PR Celebration */}
       <PRCelebration show={!!prExercise} exerciseName={prExercise} onClose={() => setPrExercise(null)} />
       {/* Exercise Video Modal */}
-      <ExerciseVideoModal exerciseName={videoExercise} isOpen={!!videoExercise} onClose={() => setVideoExercise(null)} isFR={isFR} />
+      <ExerciseGuide exerciseName={guideExercise} isOpen={!!guideExercise} onClose={() => setGuideExercise(null)} isFR={isFR} />
 
       {/* Header */}
       <div className="shrink-0 px-4 pt-4 pb-3 border-b border-blue-100" style={{ background: 'rgba(255,255,255,0.97)', backdropFilter: 'blur(12px)', boxShadow: '0 2px 12px rgba(30,80,220,0.08)' }}>
@@ -609,10 +609,10 @@ export default function LiveWorkout() {
           {/* Video tutorial button */}
           {currentEx && !done && !resting && (
             <button
-              onClick={() => setVideoExercise(currentEx?.name)}
-              className="h-9 px-3 rounded-xl bg-red-50 border border-red-200 flex items-center gap-1.5 text-red-600 text-xs font-medium hover:bg-red-100 transition-colors"
+              onClick={() => setGuideExercise(currentEx?.name)}
+              className="h-9 px-3 rounded-xl bg-blue-50 border border-blue-200 flex items-center gap-1.5 text-blue-600 text-xs font-medium hover:bg-blue-100 transition-colors"
             >
-              ▶ {isFR ? 'Tuto' : 'Video'}
+              ▶ {isFR ? 'Comment faire' : 'How to'}
             </button>
           )}
           <div className="text-right">
