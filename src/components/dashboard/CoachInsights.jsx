@@ -7,7 +7,7 @@ import { invokeAIWithLimit } from '@/lib/aiRateLimit';
 import { useTheme } from '@/lib/ThemeContext';
 
 const CACHE_KEY = 'nfit_coach_insights_v3';
-const CACHE_TTL = 4 * 60 * 60 * 1000; // 4h
+const CACHE_TTL = 12 * 60 * 60 * 1000; // 12h
 
 function InsightCard({ icon: Icon, color, title, value, sub, action, actionLink }) {
   const content = (
